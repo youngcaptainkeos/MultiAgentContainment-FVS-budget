@@ -1,0 +1,3 @@
+{"source": "researcher", "target": "writer"}
+{"source": "writer", "target": "reviewer"}
+{"source": "reviewer", "target": "researcher"}

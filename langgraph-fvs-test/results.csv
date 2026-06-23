@@ -1,0 +1,6 @@
+Trace,Number of Nodes,Number of Edges,Runtime Tau,Runtime FVS,K Before Revocation,K After Revocation,Number of Cycles
+A,3,3,1,researcher,2,0,1
+B,4,4,1,researcher,3,0,1
+C,4,5,1,writer,3,0,2
+D,4,3,0,,3,3,0
+    

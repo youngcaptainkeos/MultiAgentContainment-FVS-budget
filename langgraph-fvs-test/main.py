@@ -167,6 +167,11 @@ result = app.invoke(
     }
 )
 
+for msg in result["messages"]:
+    print(type(msg).__name__, getattr(msg, "name", None))
+    print(msg.content)
+    print()
+    
 edges = extract_edges(result["messages"])
 
 print("\nRUNTIME EDGES")
