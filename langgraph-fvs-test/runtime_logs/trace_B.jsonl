@@ -1,4 +1,0 @@
-{"source": "researcher", "target": "writer"}
-{"source": "writer", "target": "reviewer"}
-{"source": "reviewer", "target": "math"}
-{"source": "math", "target": "researcher"}
