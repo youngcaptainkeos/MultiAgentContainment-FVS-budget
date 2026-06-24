@@ -28,7 +28,119 @@ This project instead asks:
 
 To answer this, agent interactions are modeled as directed graphs and analyzed using graph-theoretic containment techniques.
 
+
 ---
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+cd langgraph-fvs-test
+```
+
+Create a virtual environment:
+
+```bash
+python -m venv venv
+```
+
+Activate the environment:
+
+Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+Linux / macOS:
+
+```bash
+source venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Running Experiments
+
+Run the automated experiment framework:
+
+```bash
+python experiment_runner.py
+```
+
+A new experiment directory will automatically be created:
+
+```text
+experiments/
+└── exp_001/
+```
+
+Each experiment contains:
+
+* Runtime trust graph logs
+* Communication traces
+* Graph visualizations
+* CSV results
+* Validation reports
+
+Generated artifacts are intentionally excluded from version control through `.gitignore` so that experiments can be reproduced independently by other researchers.
+
+---
+
+## Local LLM Configuration
+
+The LangGraph experiments were tested using a locally hosted LLM through LM Studio.
+
+Example configuration:
+
+```python
+model = ChatOpenAI(
+    model="qwen/qwen3-8b",
+    base_url="http://127.0.0.1:1234/v1",
+    api_key="lm-studio"
+)
+```
+
+Ensure LM Studio is running and exposing an OpenAI-compatible API endpoint before executing LangGraph-based experiments.
+
+---
+
+## Reproducing Results
+
+To reproduce the experiments:
+
+1. Install all dependencies.
+2. Start the local LLM endpoint.
+3. Run:
+
+```bash
+python experiment_runner.py
+```
+
+4. Review generated outputs in:
+
+```text
+experiments/exp_xxx/
+```
+
+The framework automatically stores:
+
+* Runtime trust graphs
+* τ_FVS computations
+* FVS selections
+* Propagation statistics
+* Communication logs
+* Validation reports
+
+allowing independent verification of all experimental results.
 
 ## Project Structure
 
