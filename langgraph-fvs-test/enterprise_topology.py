@@ -130,6 +130,7 @@ SUPERVISOR_COMMUNICATION_EDGES = [
     ("Executive Supervisor", "Operations Supervisor"),
     ("Research Supervisor", "Executive Supervisor"),
     ("Research Supervisor", "Engineering Supervisor"),
+    ("Research Supervisor", "Security Supervisor"),
     ("Engineering Supervisor", "Executive Supervisor"),
     ("Engineering Supervisor", "Research Supervisor"),
     ("Engineering Supervisor", "Security Supervisor"),
@@ -152,8 +153,8 @@ CROSS_DEPARTMENT_EDGES = [
 
 
 WORKFLOW_ROUTES = {
-    "research": ["Executive", "Research", "Executive"],
-    "engineering": ["Executive", "Engineering", "Executive"],
+    "research": ["Executive", "Research", "Engineering", "Executive"],
+    "engineering": ["Executive", "Engineering", "Security", "Executive"],
     "security_incident": ["Executive", "Security", "Engineering", "Executive"],
     "enterprise_architecture": [
         "Executive",
@@ -164,6 +165,16 @@ WORKFLOW_ROUTES = {
         "Executive",
     ],
 }
+
+
+WORKFLOW_TEMPLATES = [
+    ["Executive", "Research", "Engineering", "Executive"],
+    ["Executive", "Research", "Security", "Operations", "Executive"],
+    ["Operations", "Security", "Engineering", "Executive"],
+    ["Research", "Security", "Engineering", "Operations", "Executive"],
+    ["Executive", "Engineering", "Security", "Operations", "Executive"],
+    ["Executive", "Research", "Engineering", "Security", "Operations", "Executive"],
+]
 
 
 PROMPT_TYPE_KEYWORDS = {
@@ -261,8 +272,10 @@ ROUTE_CROSS_DEPARTMENT_EDGES = {
     ("Executive", "Operations"): ("Executive Supervisor", "Operations Supervisor"),
     ("Operations", "Executive"): ("Operations Supervisor", "Executive Supervisor"),
     ("Research", "Engineering"): ("Research Writer", "Engineering Planner"),
+    ("Research", "Security"): ("Research Supervisor", "Security Supervisor"),
     ("Engineering", "Research"): ("Engineering Supervisor", "Research Supervisor"),
     ("Engineering", "Security"): ("Engineering QA", "Security Auditor"),
+    ("Engineering", "Operations"): ("Engineering Supervisor", "Operations Supervisor"),
     ("Security", "Engineering"): ("Security Supervisor", "Engineering Supervisor"),
     ("Security", "Operations"): ("Security Supervisor", "Operations Supervisor"),
     ("Operations", "Security"): ("Operations Supervisor", "Security Supervisor"),
@@ -317,9 +330,15 @@ def classify_prompt(prompt: str) -> str:
 
 
 def route_prompt_departments(prompt: str) -> list[str]:
-    """Return the ordered department route activated by a prompt."""
+    """Return a deterministic varied department route activated by a prompt."""
 
-    return list(WORKFLOW_ROUTES[classify_prompt(prompt)])
+    prompt_type = classify_prompt(prompt)
+    base_route = WORKFLOW_ROUTES[prompt_type]
+    selector = sum(ord(character) for character in prompt) + len(prompt_type)
+    route = WORKFLOW_TEMPLATES[selector % len(WORKFLOW_TEMPLATES)]
+    if set(base_route).issubset(route):
+        return list(route)
+    return list(base_route)
 
 
 def build_enterprise_runtime_trust_graph(

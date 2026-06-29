@@ -24,189 +24,34 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import pandas as pd
 from matplotlib.lines import Line2D
+from matplotlib.patches import Circle
 
 from enterprise_prompts import sample_enterprise_prompts
+from enterprise_topology import (
+    DEPARTMENTS,
+    build_enterprise_runtime_trust_graph,
+    build_enterprise_topology,
+    route_prompt_departments,
+)
 from fvs_analysis import compute_fvs
 
 
-STATIC_TAU = 5
 LAYOUT_SEED = 42
 ROOT = Path(__file__).resolve().parent
 EXPERIMENTS_DIR = ROOT / "experiments"
+ENTERPRISE_GRAPH = build_enterprise_topology(seed=LAYOUT_SEED)
 
-NODES = [
-    "researcher",
-    "writer",
-    "reviewer",
-    "math",
-    "auditor",
-    "planner",
-    "coder",
-    "critic",
-    "verifier",
-    "summarizer",
-    "security",
-    "database",
-    "api",
-    "executor",
-    "supervisor",
-]
+NODES = list(ENTERPRISE_GRAPH.nodes())
 
 PROMPT_SCENARIOS = sample_enterprise_prompts()
 
 PROMPTS = [scenario["prompt"] for scenario in PROMPT_SCENARIOS]
 
-COMPROMISED_NODES = ["researcher", "writer", "math", "coder", "database"]
-
-# Every topology contains all 15 nodes. One-way bridges connect cycle clusters
-# without merging them, which keeps the intended minimum FVS sizes explicit.
-TOPOLOGIES = {
-    "tau_0_dag": [
-        ("researcher", "writer"),
-        ("researcher", "planner"),
-        ("writer", "reviewer"),
-        ("writer", "coder"),
-        ("planner", "security"),
-        ("reviewer", "math"),
-        ("coder", "critic"),
-        ("security", "database"),
-        ("math", "auditor"),
-        ("critic", "verifier"),
-        ("database", "api"),
-        ("auditor", "summarizer"),
-        ("verifier", "executor"),
-        ("api", "executor"),
-        ("summarizer", "supervisor"),
-        ("executor", "supervisor"),
-    ],
-    "tau_1_hub": [
-        ("researcher", "writer"),
-        ("writer", "reviewer"),
-        ("reviewer", "researcher"),
-        ("researcher", "math"),
-        ("math", "auditor"),
-        ("auditor", "researcher"),
-        ("researcher", "planner"),
-        ("planner", "researcher"),
-        ("reviewer", "coder"),
-        ("coder", "critic"),
-        ("critic", "verifier"),
-        ("auditor", "security"),
-        ("security", "database"),
-        ("database", "api"),
-        ("api", "executor"),
-        ("executor", "summarizer"),
-        ("summarizer", "supervisor"),
-    ],
-    "tau_2_clusters": [
-        ("researcher", "writer"),
-        ("writer", "reviewer"),
-        ("reviewer", "researcher"),
-        ("math", "auditor"),
-        ("auditor", "planner"),
-        ("planner", "math"),
-        ("reviewer", "math"),
-        ("writer", "coder"),
-        ("coder", "critic"),
-        ("critic", "verifier"),
-        ("planner", "security"),
-        ("security", "database"),
-        ("database", "api"),
-        ("api", "executor"),
-        ("executor", "summarizer"),
-        ("summarizer", "supervisor"),
-    ],
-    "tau_3_multicycle": [
-        # SCC 1: two cycles overlap at researcher.
-        ("researcher", "writer"),
-        ("writer", "reviewer"),
-        ("reviewer", "researcher"),
-        ("researcher", "math"),
-        ("math", "auditor"),
-        ("auditor", "researcher"),
-        # SCC 2: two cycles overlap at planner.
-        ("planner", "coder"),
-        ("coder", "critic"),
-        ("critic", "planner"),
-        ("planner", "verifier"),
-        ("verifier", "security"),
-        ("security", "planner"),
-        # SCC 3: two cycles overlap at database.
-        ("database", "api"),
-        ("api", "executor"),
-        ("executor", "database"),
-        ("database", "summarizer"),
-        ("summarizer", "supervisor"),
-        ("supervisor", "database"),
-        # One-way SCC bridges preserve three distinct cyclic components.
-        ("reviewer", "planner"),
-        ("security", "database"),
-    ],
-    "tau_4_interconnected": [
-        # Four SCCs, each containing cycles that overlap at a common hub.
-        ("researcher", "writer"),
-        ("writer", "reviewer"),
-        ("reviewer", "researcher"),
-        ("researcher", "math"),
-        ("math", "researcher"),
-        ("auditor", "planner"),
-        ("planner", "security"),
-        ("security", "auditor"),
-        ("auditor", "database"),
-        ("database", "auditor"),
-        ("coder", "critic"),
-        ("critic", "verifier"),
-        ("verifier", "coder"),
-        ("coder", "api"),
-        ("api", "coder"),
-        ("executor", "summarizer"),
-        ("summarizer", "supervisor"),
-        ("supervisor", "executor"),
-        # One-way bridges interconnect the SCCs without merging them.
-        ("reviewer", "auditor"),
-        ("security", "coder"),
-        ("verifier", "executor"),
-    ],
-    "tau_5_dense": [
-        ("researcher", "writer"),
-        ("writer", "reviewer"),
-        ("reviewer", "researcher"),
-        ("math", "auditor"),
-        ("auditor", "planner"),
-        ("planner", "math"),
-        ("coder", "critic"),
-        ("critic", "verifier"),
-        ("verifier", "coder"),
-        ("database", "api"),
-        ("api", "executor"),
-        ("executor", "database"),
-        ("supervisor", "summarizer"),
-        ("summarizer", "supervisor"),
-        ("reviewer", "math"),
-        ("planner", "coder"),
-        ("verifier", "security"),
-        ("security", "database"),
-        ("executor", "supervisor"),
-    ],
-}
-
-TOPOLOGY_TRACE_IDS = {
-    "tau_0_dag": "A",
-    "tau_1_hub": "B",
-    "tau_2_clusters": "C",
-    "tau_3_multicycle": "D",
-    "tau_4_interconnected": "E",
-    "tau_5_dense": "F",
-}
-
-EXPECTED_TOPOLOGY_TAU = {
-    "tau_0_dag": 0,
-    "tau_1_hub": 1,
-    "tau_2_clusters": 2,
-    "tau_3_multicycle": 3,
-    "tau_4_interconnected": 4,
-    "tau_5_dense": 5,
-}
+COMPROMISED_NODES = NODES
+TOPOLOGIES = ["enterprise_departmental_workflow"]
+TOPOLOGY_TRACE_IDS = {"enterprise_departmental_workflow": "A"}
+EXPECTED_TOPOLOGY_TAU: dict[str, int] = {}
+STATIC_TAU = len(NODES)
 
 
 def create_experiment_directory() -> tuple[str, Path]:
@@ -463,6 +308,69 @@ def save_runtime_log(path: Path, edges: list[tuple[str, str]]) -> None:
             log_file.write(json.dumps({"source": source, "target": target}) + "\n")
 
 
+DEPARTMENT_CENTERS = {
+    "Research": (0.0, 3.2),
+    "Engineering": (-3.3, 0.4),
+    "Executive": (3.3, 0.4),
+    "Security": (-3.3, -2.8),
+    "Operations": (3.3, -2.8),
+}
+
+DEPARTMENT_COLORS = {
+    "Executive": "#f8e7d0",
+    "Research": "#dceefb",
+    "Engineering": "#e4f4df",
+    "Security": "#fde2e1",
+    "Operations": "#eee6fb",
+}
+
+
+def departmental_layout(graph: nx.DiGraph) -> dict[str, tuple[float, float]]:
+    """Return deterministic positions using fixed department centers."""
+    positions: dict[str, tuple[float, float]] = {}
+    for department, center in DEPARTMENT_CENTERS.items():
+        department_nodes = [
+            node
+            for node, attributes in graph.nodes(data=True)
+            if attributes.get("department") == department
+        ]
+        subgraph = graph.subgraph(department_nodes)
+        local_positions = nx.spring_layout(subgraph, seed=LAYOUT_SEED, scale=0.95)
+        supervisor = DEPARTMENTS[department]["supervisor"]
+        for node, (x_position, y_position) in local_positions.items():
+            if node == supervisor:
+                positions[node] = center
+            else:
+                positions[node] = (center[0] + float(x_position), center[1] + float(y_position))
+    return positions
+
+
+def draw_department_backgrounds(axis: plt.Axes) -> None:
+    """Draw lightly shaded department regions behind the enterprise graph."""
+    for department, center in DEPARTMENT_CENTERS.items():
+        axis.add_patch(
+            Circle(
+                center,
+                radius=1.55,
+                facecolor=DEPARTMENT_COLORS[department],
+                edgecolor="#b8b8b8",
+                linewidth=1.0,
+                alpha=0.65,
+                zorder=0,
+            )
+        )
+        axis.text(
+            center[0],
+            center[1] + 1.72,
+            department,
+            ha="center",
+            va="center",
+            fontsize=11,
+            fontweight="bold",
+            color="#333333",
+        )
+
+
 def save_trace_graph(
     path: Path,
     graph: nx.DiGraph,
@@ -472,7 +380,9 @@ def save_trace_graph(
     title: str,
 ) -> None:
     """Render compromise state and FVS membership for one run."""
-    positions = nx.spring_layout(graph, seed=LAYOUT_SEED)
+    display_graph = ENTERPRISE_GRAPH
+    positions = departmental_layout(display_graph)
+    active_nodes = set(graph.nodes())
     infected = set(infected_nodes)
     fvs = set(fvs_nodes)
     colors = [
@@ -481,22 +391,53 @@ def save_trace_graph(
         else "#f1c40f"
         if node in infected
         else "#2ecc71"
-        for node in graph.nodes()
+        if node in active_nodes
+        else "#d9d9d9"
+        for node in display_graph.nodes()
     ]
-    borders = ["black" if node in fvs else "#666666" for node in graph.nodes()]
-    widths = [3.0 if node in fvs else 1.0 for node in graph.nodes()]
+    borders = ["black" if node in fvs else "#666666" for node in display_graph.nodes()]
+    widths = [3.2 if node in fvs else 1.0 for node in display_graph.nodes()]
 
-    figure, axis = plt.subplots(figsize=(11, 8))
-    nx.draw_networkx(
+    figure, axis = plt.subplots(figsize=(13, 10))
+    draw_department_backgrounds(axis)
+    inactive_edges = [
+        edge for edge in display_graph.edges() if edge[0] not in active_nodes or edge[1] not in active_nodes
+    ]
+    nx.draw_networkx_edges(
+        display_graph,
+        positions,
+        edgelist=inactive_edges,
+        ax=axis,
+        edge_color="#d0d0d0",
+        alpha=0.35,
+        arrows=True,
+        arrowsize=9,
+        width=0.8,
+    )
+    nx.draw_networkx_edges(
         graph,
+        positions,
+        ax=axis,
+        edge_color="#606060",
+        arrows=True,
+        arrowsize=14,
+        width=1.4,
+    )
+    nx.draw_networkx_nodes(
+        display_graph,
         positions,
         ax=axis,
         node_color=colors,
         edgecolors=borders,
         linewidths=widths,
-        node_size=1700,
-        font_size=8,
-        arrowsize=16,
+        node_size=1150,
+    )
+    nx.draw_networkx_labels(
+        display_graph,
+        positions,
+        ax=axis,
+        font_size=6.5,
+        font_family="DejaVu Sans",
     )
     axis.set_title(title)
     axis.axis("off")
@@ -504,7 +445,8 @@ def save_trace_graph(
         handles=[
             Line2D([], [], marker="o", linestyle="", color="#e74c3c", label="Compromised"),
             Line2D([], [], marker="o", linestyle="", color="#f1c40f", label="Infected"),
-            Line2D([], [], marker="o", linestyle="", color="#2ecc71", label="Normal"),
+            Line2D([], [], marker="o", linestyle="", color="#2ecc71", label="Active"),
+            Line2D([], [], marker="o", linestyle="", color="#d9d9d9", label="Inactive"),
             Line2D(
                 [], [], marker="o", linestyle="", markerfacecolor="white",
                 markeredgecolor="black", markeredgewidth=3, label="FVS",
@@ -512,7 +454,7 @@ def save_trace_graph(
         ]
     )
     figure.tight_layout()
-    figure.savefig(path, dpi=150, bbox_inches="tight")
+    figure.savefig(path, dpi=300, bbox_inches="tight")
     plt.close(figure)
 
 
@@ -525,24 +467,39 @@ def save_scc_graph(path: Path, graph: nx.DiGraph, title: str) -> None:
         for node in component
     }
     palette = plt.get_cmap("tab20")
-    colors = [palette(component_by_node[node] % 20) for node in graph.nodes()]
-    positions = nx.spring_layout(graph, seed=LAYOUT_SEED)
+    colors = [palette(component_by_node.get(node, -1) % 20) if node in graph else "#d9d9d9" for node in ENTERPRISE_GRAPH.nodes()]
+    positions = departmental_layout(ENTERPRISE_GRAPH)
 
-    figure, axis = plt.subplots(figsize=(11, 8))
-    nx.draw_networkx(
+    figure, axis = plt.subplots(figsize=(13, 10))
+    draw_department_backgrounds(axis)
+    nx.draw_networkx_edges(
         graph,
+        positions,
+        ax=axis,
+        edge_color="#606060",
+        arrows=True,
+        arrowsize=14,
+        width=1.4,
+    )
+    nx.draw_networkx_nodes(
+        ENTERPRISE_GRAPH,
         positions,
         ax=axis,
         node_color=colors,
         edgecolors="#444444",
-        node_size=1700,
-        font_size=8,
-        arrowsize=16,
+        node_size=1150,
+    )
+    nx.draw_networkx_labels(
+        ENTERPRISE_GRAPH,
+        positions,
+        ax=axis,
+        font_size=6.5,
+        font_family="DejaVu Sans",
     )
     axis.set_title(f"{title} — Strongly Connected Components")
     axis.axis("off")
     figure.tight_layout()
-    figure.savefig(path, dpi=150, bbox_inches="tight")
+    figure.savefig(path, dpi=300, bbox_inches="tight")
     plt.close(figure)
 
 
@@ -558,7 +515,7 @@ def save_aggregate_charts(results: pd.DataFrame, graphs_dir: Path) -> None:
     axis.set_ylabel("Run count")
     axis.set_title("Runtime τ_FVS Distribution")
     figure.tight_layout()
-    figure.savefig(graphs_dir / "runtime_tau_histogram.png", dpi=150)
+    figure.savefig(graphs_dir / "runtime_tau_histogram.png", dpi=300)
     plt.close(figure)
 
     positions = list(range(len(results)))
@@ -585,7 +542,7 @@ def save_aggregate_charts(results: pd.DataFrame, graphs_dir: Path) -> None:
     axis.set_xticklabels(results["Run ID"], rotation=90, fontsize=7)
     axis.legend()
     figure.tight_layout()
-    figure.savefig(graphs_dir / "k_before_vs_after.png", dpi=150)
+    figure.savefig(graphs_dir / "k_before_vs_after.png", dpi=300)
     plt.close(figure)
 
 
@@ -716,123 +673,107 @@ def write_validation_report(
 
 
 def run_experiment() -> tuple[str, Path, pd.DataFrame]:
-    """Execute every prompt against every topology in a new experiment directory."""
+    """Execute every sampled prompt against a prompt-specific enterprise graph."""
     experiment_id, experiment_dir = create_experiment_directory()
     graphs_dir = experiment_dir / "graphs"
     logs_dir = experiment_dir / "runtime_logs"
     communications_dir = experiment_dir / "communications"
     write_prompts(experiment_dir / "prompts.txt")
 
-    topology_analyses = {}
-    for topology, edges in TOPOLOGIES.items():
-        graph = build_graph(edges)
+    records = []
+    for prompt_number, scenario in enumerate(PROMPT_SCENARIOS, 1):
+        prompt = scenario["prompt"]
+        graph = build_enterprise_runtime_trust_graph(prompt, seed=LAYOUT_SEED)
+        route = route_prompt_departments(prompt)
+        topology = "workflow_" + "_to_".join(route).lower()
+        trace_id = TOPOLOGY_TRACE_IDS["enterprise_departmental_workflow"]
         cycles = list(nx.simple_cycles(graph))
         tau_runtime, fvs_nodes = compute_fvs(graph)
-        expected_tau = EXPECTED_TOPOLOGY_TAU[topology]
-        if tau_runtime != expected_tau:
-            raise ValueError(
-                f"{topology} has minimum FVS size {tau_runtime}; expected {expected_tau}"
-            )
-        topology_analyses[topology] = {
-            "graph": graph,
-            "cycles": cycles,
-            "scc_count": nx.number_strongly_connected_components(graph),
-            "tau": tau_runtime,
-            "fvs": fvs_nodes,
+        scc_count = nx.number_strongly_connected_components(graph)
+        active_nodes = sorted(graph.nodes())
+        compromised = active_nodes[(prompt_number - 1) % len(active_nodes)]
+        run_id = f"run_{prompt_number:03d}"
+        infected_before = propagate_compromise(graph, compromised)
+        revoked_graph = graph.copy()
+        revoked_graph.remove_nodes_from(fvs_nodes)
+        infected_after = propagate_compromise(revoked_graph, compromised)
+        containment_success = len(infected_before) > 0 and len(infected_after) == 0
+        steps_before, infection_paths = simulate_communications(
+            graph, compromised, scenario
+        )
+        steps_after, infection_paths_after = simulate_communications(
+            revoked_graph, compromised, scenario
+        )
+        message_count = max(0, len(steps_before) - 1)
+        message_count_after = max(0, len(steps_after) - 1)
+
+        communication_stem = f"trace_{trace_id}_prompt_{prompt_number:02d}"
+        communication_json = f"communications/{communication_stem}.json"
+        communication_markdown_path = f"communications/{communication_stem}.md"
+        communication_trace = {
+            "experiment": experiment_id,
+            "run_id": run_id,
+            "prompt": prompt,
+            "topology": topology,
+            "runtime_tau": tau_runtime,
+            "compromise_source": compromised,
+            "fvs_nodes": fvs_nodes,
+            "k_before": len(infected_before),
+            "k_after": len(infected_after),
+            "message_count": message_count,
+            "message_count_after_revocation": message_count_after,
+            "infected_nodes": infected_before,
+            "infected_nodes_after_revocation": infected_after,
+            "infection_paths": infection_paths,
+            "infection_paths_after_revocation": infection_paths_after,
+            "steps": steps_before,
+            "post_revocation_steps": steps_after,
+            "trace_semantics": (
+                "Deterministic simulation; each reachable directed edge transmits "
+                "at most once, preventing infinite replay through cycles."
+            ),
         }
+        save_communication_trace(
+            experiment_dir / communication_json,
+            experiment_dir / communication_markdown_path,
+            communication_trace,
+        )
 
-    records = []
-    run_number = 0
-    for topology, edges in TOPOLOGIES.items():
-        analysis = topology_analyses[topology]
-        graph = analysis["graph"]
-        trace_id = TOPOLOGY_TRACE_IDS[topology]
-        for prompt_number, scenario in enumerate(PROMPT_SCENARIOS, 1):
-            prompt = scenario["prompt"]
-            run_number += 1
-            run_id = f"run_{run_number:03d}"
-            compromised = COMPROMISED_NODES[(run_number - 1) % len(COMPROMISED_NODES)]
-            infected_before = propagate_compromise(graph, compromised)
-            revoked_graph = graph.copy()
-            revoked_graph.remove_nodes_from(analysis["fvs"])
-            infected_after = propagate_compromise(revoked_graph, compromised)
-            containment_success = len(infected_before) > 0 and len(infected_after) == 0
-            steps_before, infection_paths = simulate_communications(
-                graph, compromised, scenario
-            )
-            steps_after, infection_paths_after = simulate_communications(
-                revoked_graph, compromised, scenario
-            )
-            message_count = max(0, len(steps_before) - 1)
-            message_count_after = max(0, len(steps_after) - 1)
+        save_runtime_log(logs_dir / f"{run_id}.jsonl", list(graph.edges()))
+        title = f"{run_id}: {' → '.join(route)} | compromised={compromised}"
+        save_trace_graph(
+            graphs_dir / f"{run_id}_trace_graph.png",
+            graph,
+            compromised,
+            infected_before,
+            fvs_nodes,
+            title,
+        )
+        save_scc_graph(graphs_dir / f"{run_id}_scc.png", graph, title)
 
-            communication_stem = f"trace_{trace_id}_prompt_{prompt_number:02d}"
-            communication_json = f"communications/{communication_stem}.json"
-            communication_markdown_path = f"communications/{communication_stem}.md"
-            communication_trace = {
-                "experiment": experiment_id,
-                "run_id": run_id,
-                "prompt": prompt,
-                "topology": topology,
-                "runtime_tau": analysis["tau"],
-                "compromise_source": compromised,
-                "fvs_nodes": analysis["fvs"],
-                "k_before": len(infected_before),
-                "k_after": len(infected_after),
-                "message_count": message_count,
-                "message_count_after_revocation": message_count_after,
-                "infected_nodes": infected_before,
-                "infected_nodes_after_revocation": infected_after,
-                "infection_paths": infection_paths,
-                "infection_paths_after_revocation": infection_paths_after,
-                "steps": steps_before,
-                "post_revocation_steps": steps_after,
-                "trace_semantics": (
-                    "Deterministic simulation; each reachable directed edge transmits "
-                    "at most once, preventing infinite replay through cycles."
-                ),
+        records.append(
+            {
+                "Experiment ID": experiment_id,
+                "Run ID": run_id,
+                "Prompt": prompt,
+                "Topology": topology,
+                "Nodes": graph.number_of_nodes(),
+                "Edges": graph.number_of_edges(),
+                "Cycle Count": len(cycles),
+                "SCC Count": scc_count,
+                "Runtime τ_FVS": tau_runtime,
+                "FVS Nodes": "|".join(fvs_nodes),
+                "Compromised Node": compromised,
+                "K Before": len(infected_before),
+                "K After": len(infected_after),
+                "Containment Success": containment_success,
+                "Message Count": message_count,
+                "Messages After Revocation": message_count_after,
+                "Infection Path Count": len(infection_paths),
+                "Communications JSON": communication_json,
+                "Communications Markdown": communication_markdown_path,
             }
-            save_communication_trace(
-                experiment_dir / communication_json,
-                experiment_dir / communication_markdown_path,
-                communication_trace,
-            )
-
-            save_runtime_log(logs_dir / f"{run_id}.jsonl", edges)
-            title = f"{run_id}: {topology} | compromised={compromised}"
-            save_trace_graph(
-                graphs_dir / f"{run_id}_trace_graph.png",
-                graph,
-                compromised,
-                infected_before,
-                analysis["fvs"],
-                title,
-            )
-            save_scc_graph(graphs_dir / f"{run_id}_scc.png", graph, title)
-
-            records.append(
-                {
-                    "Experiment ID": experiment_id,
-                    "Run ID": run_id,
-                    "Prompt": prompt,
-                    "Topology": topology,
-                    "Nodes": graph.number_of_nodes(),
-                    "Edges": graph.number_of_edges(),
-                    "Cycle Count": len(analysis["cycles"]),
-                    "SCC Count": analysis["scc_count"],
-                    "Runtime τ_FVS": analysis["tau"],
-                    "FVS Nodes": "|".join(analysis["fvs"]),
-                    "Compromised Node": compromised,
-                    "K Before": len(infected_before),
-                    "K After": len(infected_after),
-                    "Containment Success": containment_success,
-                    "Message Count": message_count,
-                    "Messages After Revocation": message_count_after,
-                    "Infection Path Count": len(infection_paths),
-                    "Communications JSON": communication_json,
-                    "Communications Markdown": communication_markdown_path,
-                }
-            )
+        )
 
     results = pd.DataFrame.from_records(records)
     results.to_csv(experiment_dir / "results.csv", index=False)
