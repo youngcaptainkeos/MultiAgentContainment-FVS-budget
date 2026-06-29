@@ -32,6 +32,8 @@ from enterprise_topology import (
     build_enterprise_runtime_trust_graph,
     build_enterprise_topology,
     route_prompt_departments,
+    classify_workflow_family,
+    compute_graph_hash,
 )
 from fvs_analysis import compute_fvs
 
@@ -95,6 +97,28 @@ def propagate_compromise(graph: nx.DiGraph, compromised_node: str) -> list[str]:
                 infected.append(neighbor)
                 queue.append(neighbor)
     return infected
+
+
+def propagate_compromise_depth(graph: nx.DiGraph, compromised_node: str) -> tuple[list[str], int]:
+    """Return reachable downstream nodes in BFS order and the maximum propagation depth."""
+    if compromised_node not in graph:
+        return [], 0
+
+    visited = {compromised_node}
+    infected: list[str] = []
+    distances = {compromised_node: 0}
+    queue = deque([compromised_node])
+    while queue:
+        current = queue.popleft()
+        current_dist = distances[current]
+        for neighbor in graph.successors(current):
+            if neighbor not in visited:
+                visited.add(neighbor)
+                distances[neighbor] = current_dist + 1
+                infected.append(neighbor)
+                queue.append(neighbor)
+    max_depth = max(distances.values()) if distances else 0
+    return infected, max_depth
 
 
 def generate_agent_output(
@@ -225,9 +249,112 @@ def simulate_communications(
     return steps, infection_paths
 
 
+HANDOFF_RATIONALES = {
+    ("Executive", "Research"): "Executive Supervisor assigned the strategic objective to Research Supervisor for in-depth analysis.",
+    ("Research", "Executive"): "Research Supervisor sent the finalized research findings to Executive Supervisor for strategic review.",
+    ("Executive", "Engineering"): "Executive Supervisor commissioned Engineering Supervisor to initiate system design and development.",
+    ("Engineering", "Executive"): "Engineering Supervisor delivered the release report to Executive Supervisor for review.",
+    ("Executive", "Security"): "Executive Supervisor requested Security Supervisor to conduct a compliance and threat audit.",
+    ("Security", "Executive"): "Security Risk escalated risk and assessment findings to Executive Supervisor.",
+    ("Executive", "Operations"): "Executive Supervisor tasked Operations Supervisor with deployment and procurement coordination.",
+    ("Operations", "Executive"): "Operations Supervisor confirmed operational readiness to Executive Supervisor.",
+    ("Research", "Engineering"): "Research Writer shared requirements with Engineering Planner to start architecting the solution.",
+    ("Research", "Security"): "Research Supervisor consulted Security Supervisor on zero-trust and encryption requirements.",
+    ("Engineering", "Research"): "Engineering Supervisor requested Research Supervisor for further feasibility assessment on new tech.",
+    ("Engineering", "Security"): "Engineering QA requested Security Auditor to perform a security and vulnerability scan on release.",
+    ("Engineering", "Operations"): "Engineering Supervisor coordinated rollout plans with Operations Supervisor.",
+    ("Security", "Engineering"): "Security Supervisor advised Engineering Supervisor on containment and patch deployment.",
+    ("Security", "Operations"): "Security Supervisor coordinated firewall and access controls with Operations Supervisor.",
+    ("Operations", "Security"): "Operations Supervisor requested Security Supervisor to review vendor security compliance.",
+    ("Operations", "Research"): "Operations Finance consulted Research Supervisor on research adoption cost estimates.",
+}
+
+
+def generate_execution_narrative(trace: dict[str, object]) -> list[str]:
+    """Generate a human-readable case study explanation for the empirical evaluation."""
+    route = trace.get("route", [])
+    active_nodes = trace.get("active_nodes_list", [])
+    compromised = trace.get("compromise_source", "")
+    fvs = trace.get("fvs_nodes", [])
+    infected_before = trace.get("infected_nodes", [])
+    depth_before = trace.get("depth_before", 0)
+    depth_after = trace.get("depth_after", 0)
+    depts_before = trace.get("affected_depts_before", 0)
+    depts_after = trace.get("affected_depts_after", 0)
+    efficiency = trace.get("containment_efficiency", 0.0)
+    paths = trace.get("infection_paths", [])
+
+    lines = [
+        "# Execution Narrative",
+        "",
+        "### 🏢 Participating Departments",
+        " → ".join(route),
+        "",
+        "### 👥 Specialists Collaborating",
+    ]
+    
+    dept_agents: dict[str, list[str]] = {}
+    for node in active_nodes:
+        for dept in ["Executive", "Research", "Engineering", "Security", "Operations"]:
+            if node.startswith(dept):
+                dept_agents.setdefault(dept, []).append(node)
+                break
+                
+    for dept in sorted(dept_agents.keys()):
+        agents_str = ", ".join(sorted(dept_agents[dept]))
+        lines.append(f"- **{dept}**: {agents_str}")
+        
+    lines.extend([
+        "",
+        "### 🔗 Handoff Rationale",
+    ])
+    for u, v in zip(route, route[1:]):
+        if u != v:
+            rationale = HANDOFF_RATIONALES.get((u, v), f"Handoff from {u} to {v} for workflow progression.")
+            lines.append(f"- **{u} → {v}**: {rationale}")
+            
+    lines.extend([
+        "",
+        "### ⚠️ Compromise Propagation Trace",
+    ])
+    if not infected_before:
+        lines.append(f"The compromise remained isolated at the source (**{compromised}**) and did not spread.")
+    else:
+        lines.append(f"The compromise initiated at **{compromised}** and propagated to the following downstream nodes:")
+        for path in paths:
+            if len(path) > 1:
+                target = path[-1]
+                path_str = " → ".join(path)
+                lines.append(f"- **{target}** (Path: {path_str})")
+                
+    lines.extend([
+        "",
+        "### 🛡️ Feedback Vertex Set (FVS) Containment",
+        f"- **FVS Nodes Selected**: {', '.join(fvs) if fvs else 'None (Topology is acyclic)'}",
+        f"- **Containment Efficiency**: {efficiency * 100:.1f}%",
+        f"- **Propagation Depth**: Reduced from {depth_before} to {depth_after} hops.",
+        f"- **Affected Departments**: Reduced from {depts_before} to {depts_after} departments.",
+    ])
+    if efficiency == 1.0:
+        lines.append("Complete containment was achieved. All downstream compromise propagation was blocked.")
+    elif efficiency > 0.0:
+        lines.append("Partial containment was achieved. Compromise propagation was significantly limited.")
+    else:
+        lines.append("No active feedback cycles were present, or containment did not change the reachability footprint.")
+        
+    lines.extend([
+        "",
+        "---",
+        ""
+    ])
+    return lines
+
+
 def communication_markdown(trace: dict[str, object]) -> str:
     """Render a communication trace as a reviewer-readable Markdown transcript."""
-    lines = [
+    lines = generate_execution_narrative(trace)
+    
+    lines.extend([
         "# Prompt",
         "",
         str(trace["prompt"]),
@@ -242,7 +369,7 @@ def communication_markdown(trace: dict[str, object]) -> str:
         "---",
         "",
         "# Communication Before Revocation",
-    ]
+    ])
     for step in trace["steps"]:
         lines.extend(
             [
@@ -589,6 +716,9 @@ def build_grouped_summaries(results: pd.DataFrame) -> tuple[pd.DataFrame, pd.Dat
         "Containment Success Rate (%)": ("Containment Success", lambda values: values.mean() * 100),
         "Mean Message Count": ("Message Count", "mean"),
         "Total Message Count": ("Message Count", "sum"),
+        "Mean Containment Efficiency": ("containment_efficiency", "mean"),
+        "Mean Propagation Depth Before": ("propagation_depth_before", "mean"),
+        "Mean Propagation Depth After": ("propagation_depth_after", "mean"),
     }
     by_topology = (
         results.groupby(["Topology", "Runtime τ_FVS"], sort=False)
@@ -605,6 +735,9 @@ def build_grouped_summaries(results: pd.DataFrame) -> tuple[pd.DataFrame, pd.Dat
         "Mean K After",
         "Containment Success Rate (%)",
         "Mean Message Count",
+        "Mean Containment Efficiency",
+        "Mean Propagation Depth Before",
+        "Mean Propagation Depth After",
     ]
     by_topology[numeric_columns] = by_topology[numeric_columns].round(2)
     by_tau[numeric_columns] = by_tau[numeric_columns].round(2)
@@ -627,6 +760,17 @@ def write_validation_report(
     average_messages = float(results["Message Count"].mean())
     total_messages = int(results["Message Count"].sum())
     bound_holds = maximum <= STATIC_TAU
+    
+    unique_hashes = results["graph_hash"].nunique()
+    
+    avg_efficiency = float(results["containment_efficiency"].mean() * 100)
+    avg_prop_depth_before = float(results["propagation_depth_before"].mean())
+    avg_prop_depth_after = float(results["propagation_depth_after"].mean())
+    avg_prop_depth_reduction = float(results["propagation_depth_reduction"].mean())
+    avg_depts_before = float(results["affected_departments_before"].mean())
+    avg_depts_after = float(results["affected_departments_after"].mean())
+    avg_depts_reduction = float(results["affected_departments_reduction"].mean())
+    avg_msg_reduction = float(results["message_reduction"].mean())
 
     violating_topologies = sorted(
         results.loc[results["Runtime τ_FVS"] > STATIC_TAU, "Topology"].unique()
@@ -635,14 +779,23 @@ def write_validation_report(
         "Runtime τ_FVS Validation Report",
         "================================",
         "",
+        f"Unique Runtime Graphs: {unique_hashes}/{len(results)}",
         f"Observed τ values: {set(observed)}",
         f"Maximum runtime τ: {maximum}",
         f"Minimum runtime τ: {minimum}",
         f"Containment Success Rate: {containment_rate:.1f}%",
+        f"Average Containment Efficiency: {avg_efficiency:.1f}%",
         f"Average K Before: {average_before:.2f}",
         f"Average K After: {average_after:.2f}",
         f"Average Message Count: {average_messages:.2f}",
         f"Total Agent-to-Agent Messages: {total_messages}",
+        f"Average Propagation Depth Before: {avg_prop_depth_before:.2f}",
+        f"Average Propagation Depth After: {avg_prop_depth_after:.2f}",
+        f"Average Propagation Depth Reduction: {avg_prop_depth_reduction:.2f}",
+        f"Average Affected Departments Before: {avg_depts_before:.2f}",
+        f"Average Affected Departments After: {avg_depts_after:.2f}",
+        f"Average Affected Departments Reduction: {avg_depts_reduction:.2f}",
+        f"Average Message Reduction: {avg_msg_reduction:.2f}",
         f"Static τ_FVS: {STATIC_TAU}",
         "",
         "Static upper-bound validation: " + ("PASS" if bound_holds else "FAIL"),
@@ -655,6 +808,20 @@ def write_validation_report(
             + ", ".join(violating_topologies)
             + "."
         )
+        
+    lines.extend([
+        "",
+        "Workflow Family Validation Summary:",
+        "-----------------------------------"
+    ])
+    family_groups = results.groupby("workflow_family")
+    for name, group in family_groups:
+        family_taus = sorted([int(x) for x in group["Runtime τ_FVS"].unique()])
+        family_depts = sorted(group["activated_departments"].unique())
+        lines.append(f"Family: {name}")
+        lines.append(f"  Observed τ values: {family_taus}")
+        lines.append(f"  Unique department routes activated: {len(family_depts)}")
+
     lines.extend(
         [
             "",
@@ -693,10 +860,13 @@ def run_experiment() -> tuple[str, Path, pd.DataFrame]:
         active_nodes = sorted(graph.nodes())
         compromised = active_nodes[(prompt_number - 1) % len(active_nodes)]
         run_id = f"run_{prompt_number:03d}"
-        infected_before = propagate_compromise(graph, compromised)
+        
+        # Linear-time BFS depth compromise propagation
+        infected_before, depth_before = propagate_compromise_depth(graph, compromised)
         revoked_graph = graph.copy()
         revoked_graph.remove_nodes_from(fvs_nodes)
-        infected_after = propagate_compromise(revoked_graph, compromised)
+        infected_after, depth_after = propagate_compromise_depth(revoked_graph, compromised)
+        
         containment_success = len(infected_before) > 0 and len(infected_after) == 0
         steps_before, infection_paths = simulate_communications(
             graph, compromised, scenario
@@ -707,9 +877,54 @@ def run_experiment() -> tuple[str, Path, pd.DataFrame]:
         message_count = max(0, len(steps_before) - 1)
         message_count_after = max(0, len(steps_after) - 1)
 
+        # Calculate semantic and comparative metrics:
+        internal_messages = sum(
+            1 for u, v in graph.edges()
+            if graph.nodes[u].get("department") == graph.nodes[v].get("department")
+        )
+        department_handoffs = sum(
+            1 for u, v in graph.edges()
+            if graph.nodes[u].get("department") != graph.nodes[v].get("department")
+        )
+        
+        active_agents = [n for n in graph if graph.nodes[n].get("role") == "agent"]
+        active_specialists_count = len(active_agents)
+        collaboration_depth = active_specialists_count
+        review_cycles = len(cycles)
+        
+        active_depts = set(route)
+        average_department_size = graph.number_of_nodes() / len(active_depts) if active_depts else 0.0
+        
+        max_dept_depth = 0
+        for d in active_depts:
+            dept_agents = [n for n in graph if graph.nodes[n].get("department") == d and graph.nodes[n].get("role") == "agent"]
+            max_dept_depth = max(max_dept_depth, len(dept_agents))
+            
+        propagation_depth_before = depth_before
+        propagation_depth_after = depth_after
+        propagation_depth_reduction = depth_before - depth_after
+        
+        visited_before_nodes = set(infected_before) | ({compromised} if compromised in graph else set())
+        visited_after_nodes = set(infected_after) | ({compromised} if compromised in revoked_graph else set())
+        
+        affected_depts_before = len(set(graph.nodes[n]["department"] for n in visited_before_nodes if n in graph))
+        affected_depts_after = len(set(revoked_graph.nodes[n]["department"] for n in visited_after_nodes if n in revoked_graph))
+        affected_depts_reduction = affected_depts_before - affected_depts_after
+        
+        message_reduction = message_count - message_count_after
+        
+        k_before = len(infected_before)
+        k_after = len(infected_after)
+        if k_before > 0:
+            containment_efficiency = (k_before - k_after) / k_before
+        else:
+            containment_efficiency = 1.0 if k_after == 0 else 0.0
+
         communication_stem = f"trace_{trace_id}_prompt_{prompt_number:02d}"
         communication_json = f"communications/{communication_stem}.json"
         communication_markdown_path = f"communications/{communication_stem}.md"
+        
+        # Prepare trace with narrative details
         communication_trace = {
             "experiment": experiment_id,
             "run_id": run_id,
@@ -718,8 +933,8 @@ def run_experiment() -> tuple[str, Path, pd.DataFrame]:
             "runtime_tau": tau_runtime,
             "compromise_source": compromised,
             "fvs_nodes": fvs_nodes,
-            "k_before": len(infected_before),
-            "k_after": len(infected_after),
+            "k_before": k_before,
+            "k_after": k_after,
             "message_count": message_count,
             "message_count_after_revocation": message_count_after,
             "infected_nodes": infected_before,
@@ -732,6 +947,14 @@ def run_experiment() -> tuple[str, Path, pd.DataFrame]:
                 "Deterministic simulation; each reachable directed edge transmits "
                 "at most once, preventing infinite replay through cycles."
             ),
+            # Narrative fields:
+            "route": route,
+            "active_nodes_list": list(active_nodes),
+            "depth_before": depth_before,
+            "depth_after": depth_after,
+            "affected_depts_before": affected_depts_before,
+            "affected_depts_after": affected_depts_after,
+            "containment_efficiency": containment_efficiency,
         }
         save_communication_trace(
             experiment_dir / communication_json,
@@ -751,6 +974,12 @@ def run_experiment() -> tuple[str, Path, pd.DataFrame]:
         )
         save_scc_graph(graphs_dir / f"{run_id}_scc.png", graph, title)
 
+        # Calculate fingerprint metrics:
+        graph_hash = compute_graph_hash(graph)
+        workflow_family = classify_workflow_family(prompt)
+        activated_departments = "|".join(sorted(list(set(route))))
+        activated_roles = "|".join(sorted([node for node in graph.nodes() if graph.nodes[node].get("role") == "agent"]))
+
         records.append(
             {
                 "Experiment ID": experiment_id,
@@ -764,14 +993,37 @@ def run_experiment() -> tuple[str, Path, pd.DataFrame]:
                 "Runtime τ_FVS": tau_runtime,
                 "FVS Nodes": "|".join(fvs_nodes),
                 "Compromised Node": compromised,
-                "K Before": len(infected_before),
-                "K After": len(infected_after),
+                "K Before": k_before,
+                "K After": k_after,
                 "Containment Success": containment_success,
                 "Message Count": message_count,
                 "Messages After Revocation": message_count_after,
                 "Infection Path Count": len(infection_paths),
                 "Communications JSON": communication_json,
                 "Communications Markdown": communication_markdown_path,
+                # New metrics:
+                "graph_hash": graph_hash,
+                "workflow_family": workflow_family,
+                "activated_departments": activated_departments,
+                "activated_roles": activated_roles,
+                "active_node_count": graph.number_of_nodes(),
+                "active_edge_count": graph.number_of_edges(),
+                # Expanded containment comparative metrics
+                "internal_messages": internal_messages,
+                "department_handoffs": department_handoffs,
+                "collaboration_depth": collaboration_depth,
+                "review_cycles": review_cycles,
+                "active_specialists": active_specialists_count,
+                "average_department_size": average_department_size,
+                "maximum_department_depth": max_dept_depth,
+                "propagation_depth_before": propagation_depth_before,
+                "propagation_depth_after": propagation_depth_after,
+                "propagation_depth_reduction": propagation_depth_reduction,
+                "affected_departments_before": affected_depts_before,
+                "affected_departments_after": affected_depts_after,
+                "affected_departments_reduction": affected_depts_reduction,
+                "message_reduction": message_reduction,
+                "containment_efficiency": containment_efficiency,
             }
         )
 
@@ -795,17 +1047,37 @@ def print_summary(experiment_id: str, experiment_dir: Path, results: pd.DataFram
     """Print the experiment location and aggregate observations."""
     observed = set(int(value) for value in results["Runtime τ_FVS"].unique())
     successes = int(results["Containment Success"].sum())
+    unique_hashes = results["graph_hash"].nunique()
     print(f"Experiment: {experiment_id}")
     print(f"Output: {experiment_dir}")
     print(f"Runs: {len(results)}")
+    print(f"Unique runtime graphs: {unique_hashes}/{len(results)}")
     print(f"Observed runtime τ values: {observed}")
     print(f"Maximum runtime τ: {int(results['Runtime τ_FVS'].max())}")
     print(f"Minimum runtime τ: {int(results['Runtime τ_FVS'].min())}")
     print(f"Containment success rate: {successes}/{len(results)}")
+    print(f"Average containment efficiency: {results['containment_efficiency'].mean() * 100:.1f}%")
     print(f"Average K Before: {results['K Before'].mean():.2f}")
     print(f"Average K After: {results['K After'].mean():.2f}")
     print(f"Average message count: {results['Message Count'].mean():.2f}")
     print(f"Total agent-to-agent messages: {int(results['Message Count'].sum())}")
+    print(f"Average propagation depth before: {results['propagation_depth_before'].mean():.2f}")
+    print(f"Average propagation depth after: {results['propagation_depth_after'].mean():.2f}")
+    print(f"Average propagation depth reduction: {results['propagation_depth_reduction'].mean():.2f}")
+    print(f"Average affected departments before: {results['affected_departments_before'].mean():.2f}")
+    print(f"Average affected departments after: {results['affected_departments_after'].mean():.2f}")
+    print(f"Average affected departments reduction: {results['affected_departments_reduction'].mean():.2f}")
+    print(f"Average message reduction: {results['message_reduction'].mean():.2f}")
+    
+    print("\nWorkflow Family Diversity Summary:")
+    print("----------------------------------")
+    family_groups = results.groupby("workflow_family")
+    for name, group in family_groups:
+        family_taus = sorted([int(x) for x in group["Runtime τ_FVS"].unique()])
+        family_depts = sorted(group["activated_departments"].unique())
+        print(f"Family: {name}")
+        print(f"  Observed τ values: {family_taus}")
+        print(f"  Unique department routes activated: {len(family_depts)}")
 
 
 if __name__ == "__main__":
