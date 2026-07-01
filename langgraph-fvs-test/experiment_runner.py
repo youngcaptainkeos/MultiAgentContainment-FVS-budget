@@ -498,7 +498,7 @@ def draw_department_backgrounds(axis: plt.Axes) -> None:
             department,
             ha="center",
             va="center",
-            fontsize=11,
+            fontsize=15,
             fontweight="bold",
             color="#333333",
         )
@@ -808,7 +808,7 @@ def save_before_after_comparison(
                 dept,
                 ha="center",
                 va="center",
-                fontsize=11,
+                fontsize=16,
                 fontweight="bold",
                 color="#333333",
                 alpha=1.0 if is_active else 0.4
@@ -819,14 +819,18 @@ def save_before_after_comparison(
     def draw_fvs_double_outline(ax, fvs_set, size=950):
         fvs_list = [n for n in display_graph.nodes() if n in fvs_set]
         if fvs_list:
-            nx.draw_networkx_nodes(
+            c1 = nx.draw_networkx_nodes(
                 display_graph, positions, nodelist=fvs_list, ax=ax,
                 node_color="black", node_size=size + 350
             )
-            nx.draw_networkx_nodes(
+            if c1 is not None:
+                c1.set_zorder(3)
+            c2 = nx.draw_networkx_nodes(
                 display_graph, positions, nodelist=fvs_list, ax=ax,
                 node_color="white", node_size=size + 150
             )
+            if c2 is not None:
+                c2.set_zorder(3)
 
     # ----------------------------------------------------
     # Panel (a): Runtime Trust Graph
@@ -877,10 +881,10 @@ def save_before_after_comparison(
     )
     nx.draw_networkx_labels(
         display_graph, label_positions, ax=ax_a,
-        font_size=7, font_family="DejaVu Sans", font_weight="bold",
+        font_size=8.5, font_family="DejaVu Sans", font_weight="bold",
         bbox=dict(facecolor="white", edgecolor="none", alpha=0.7, boxstyle="round,pad=0.2")
     )
-    ax_a.set_title("(a) Runtime Trust Graph", fontsize=14, fontweight="bold", pad=10)
+    ax_a.set_title("(a) Runtime Trust Graph", fontsize=16, fontweight="bold", pad=12)
     ax_a.axis("off")
     
     # ----------------------------------------------------
@@ -926,7 +930,7 @@ def save_before_after_comparison(
     )
     nx.draw_networkx_labels(
         display_graph, label_positions, ax=ax_b,
-        font_size=7, font_family="DejaVu Sans", font_weight="bold",
+        font_size=8.5, font_family="DejaVu Sans", font_weight="bold",
         bbox=dict(facecolor="white", edgecolor="none", alpha=0.7, boxstyle="round,pad=0.2")
     )
     
@@ -939,11 +943,11 @@ def save_before_after_comparison(
         centroid_x = sum(xs) / len(scc_nodes)
         centroid_y = sum(ys) / len(scc_nodes)
         
-        scc_text = f"SCC {idx}\nNodes: {len(scc_nodes)}\nτ: {scc_tau}"
+        scc_text = f"SCC {idx}\nNodes: {len(scc_nodes)}\n\u03c4: {scc_tau}"
         ax_b.text(
             centroid_x, centroid_y + 0.45,
             scc_text,
-            fontsize=8,
+            fontsize=9,
             fontweight="bold",
             fontfamily="DejaVu Sans",
             ha="center",
@@ -957,7 +961,7 @@ def save_before_after_comparison(
             ),
             zorder=10
         )
-    ax_b.set_title("(b) SCC & Feedback Cycles", fontsize=14, fontweight="bold", pad=10)
+    ax_b.set_title("(b) SCC & Feedback Cycles", fontsize=16, fontweight="bold", pad=12)
     ax_b.axis("off")
     
     # ----------------------------------------------------
@@ -1004,10 +1008,10 @@ def save_before_after_comparison(
     )
     nx.draw_networkx_labels(
         display_graph, label_positions, ax=ax_c,
-        font_size=7, font_family="DejaVu Sans", font_weight="bold",
+        font_size=8.5, font_family="DejaVu Sans", font_weight="bold",
         bbox=dict(facecolor="white", edgecolor="none", alpha=0.7, boxstyle="round,pad=0.2")
     )
-    ax_c.set_title("(c) Before Containment", fontsize=14, fontweight="bold", pad=10)
+    ax_c.set_title("(c) Before Containment", fontsize=16, fontweight="bold", pad=12)
     ax_c.axis("off")
     
     # ----------------------------------------------------
@@ -1063,16 +1067,20 @@ def save_before_after_comparison(
     
     for node_idx, node in enumerate(display_graph.nodes()):
         if node in fvs:
-            nx.draw_networkx_nodes(
+            c1 = nx.draw_networkx_nodes(
                 display_graph, positions, nodelist=[node], ax=ax_d,
                 node_color="black", node_size=sizes_d[node_idx] + 350,
                 alpha=alphas_d[node_idx]
             )
-            nx.draw_networkx_nodes(
+            if c1 is not None:
+                c1.set_zorder(3)
+            c2 = nx.draw_networkx_nodes(
                 display_graph, positions, nodelist=[node], ax=ax_d,
                 node_color="white", node_size=sizes_d[node_idx] + 150,
                 alpha=alphas_d[node_idx]
             )
+            if c2 is not None:
+                c2.set_zorder(3)
             
         nx.draw_networkx_nodes(
             display_graph, positions, nodelist=[node], ax=ax_d,
@@ -1082,22 +1090,22 @@ def save_before_after_comparison(
         
     nx.draw_networkx_labels(
         display_graph, label_positions, ax=ax_d,
-        font_size=7, font_family="DejaVu Sans", font_weight="bold",
+        font_size=8.5, font_family="DejaVu Sans", font_weight="bold",
         bbox=dict(facecolor="white", edgecolor="none", alpha=0.6, boxstyle="round,pad=0.2")
     )
-    ax_d.set_title("(d) After FVS Containment", fontsize=14, fontweight="bold", pad=10)
+    ax_d.set_title("(d) After FVS Containment", fontsize=16, fontweight="bold", pad=12)
     ax_d.axis("off")
     
     legend_elements = [
-        Line2D([0], [0], marker="o", color="w", markerfacecolor="#e74c3c", markersize=10, label="Compromised"),
-        Line2D([0], [0], marker="o", color="w", markerfacecolor="#f1c40f", markersize=10, label="Infected"),
-        Line2D([0], [0], marker="o", color="w", markerfacecolor="white", markeredgecolor="black", markeredgewidth=3, markersize=10, label="FVS Node (Revocation target)"),
-        Line2D([0], [0], marker="o", color="w", markerfacecolor="#2ecc71", markersize=10, label="Active / Safe"),
-        Line2D([0], [0], marker="o", color="w", markerfacecolor="#d9d9d9", markersize=10, label="Inactive / Revoked"),
+        Line2D([0], [0], marker="o", color="w", markerfacecolor="#e74c3c", markersize=14, label="Compromised Agent"),
+        Line2D([0], [0], marker="o", color="w", markerfacecolor="#f1c40f", markersize=14, label="Infected Agent"),
+        Line2D([0], [0], marker="o", color="w", markerfacecolor="white", markeredgecolor="black", markeredgewidth=3.5, markersize=14, label="FVS Node (Revocation Target)"),
+        Line2D([0], [0], marker="o", color="w", markerfacecolor="#2ecc71", markersize=14, label="Active / Safe Agent"),
+        Line2D([0], [0], marker="o", color="w", markerfacecolor="#d9d9d9", markersize=14, label="Inactive / Revoked Agent"),
     ]
-    figure.legend(handles=legend_elements, loc="lower center", ncol=5, fontsize=12, frameon=True, bbox_to_anchor=(0.5, 0.02))
+    figure.legend(handles=legend_elements, loc="lower center", ncol=5, fontsize=16, frameon=True, bbox_to_anchor=(0.5, 0.02))
     
-    figure.suptitle(f"FVS Containment Theorem Flow — {run_id} ({topology})", fontsize=18, fontweight="bold", y=0.96)
+    figure.suptitle(f"FVS Containment Theorem Flow — {run_id} ({topology})", fontsize=20, fontweight="bold", y=0.96)
     
     plt.subplots_adjust(bottom=0.08, top=0.90, wspace=0.15, hspace=0.15)
     figure.savefig(path_png, dpi=600, bbox_inches="tight")
@@ -1863,96 +1871,292 @@ def save_baseline_plots(policy_records: dict[str, list[dict]], figures_dir: Path
     import numpy as np
     import pandas as pd
     from matplotlib.lines import Line2D
+    from scipy.stats import t
     
     baselines = list(policy_records.keys())
-    labels = [b.replace("_", " ").title() for b in baselines]
     
+    color_map = {
+        "runtime_fvs": "#2E8B57",             # deep green
+        "static_fvs": "#1C3D5A",              # dark blue
+        "degree_centrality": "#808080",       # neutral gray
+        "betweenness_centrality": "#808080",  # neutral gray
+        "pagerank": "#808080",                # neutral gray
+        "random_revocation": "#FF7F0E",       # orange
+        "supervisor_only": "#17BECF",         # teal
+        "department_isolation": "#9C6ADE",    # purple
+        "no_containment": "#D62728",          # red
+        "compromised_only": "#FFD700"         # gold
+    }
+    
+    label_map = {
+        "no_containment": "No Containment",
+        "random_revocation": "Random Revocation",
+        "degree_centrality": "Degree Centrality",
+        "betweenness_centrality": "Betweenness Centrality",
+        "pagerank": "PageRank",
+        "supervisor_only": "Supervisor Only",
+        "department_isolation": "Department Isolation",
+        "static_fvs": "Static FVS",
+        "compromised_only": "Perfect Detection / Immediate Source Revocation",
+        "runtime_fvs": "Runtime FVS"
+    }
+    
+    labels = [label_map.get(b, b.replace("_", " ").title()) for b in baselines]
+    
+    def get_p_val_stars(fvs_vals, base_vals):
+        from scipy.stats import wilcoxon, ttest_rel, shapiro
+        diffs = fvs_vals - base_vals
+        if np.all(diffs == 0):
+            return "ns"
+        normal = False
+        try:
+            if len(diffs) >= 3:
+                _, p_sh = shapiro(diffs)
+                normal = (p_sh > 0.05)
+        except:
+            pass
+        try:
+            if normal:
+                _, p = ttest_rel(fvs_vals, base_vals)
+            else:
+                _, p = wilcoxon(fvs_vals, base_vals)
+        except:
+            p = 1.0
+            
+        if p < 0.0001:
+            return "****"
+        elif p < 0.001:
+            return "***"
+        elif p < 0.01:
+            return "**"
+        elif p < 0.05:
+            return "*"
+        else:
+            return "ns"
+
+    def draw_sig_bracket(ax, x1, x2, y, h, text):
+        ax.plot([x1, x1, x2, x2], [y - h, y, y, y - h], color="black", lw=1.2)
+        ax.text((x1 + x2) / 2.0, y + h * 0.2, text, ha="center", va="bottom", fontsize=10, fontweight="bold")
+
     # 1. Containment Ratio Comparison
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(12, 8))
     means = []
     errors = []
+    colors = []
     for b in baselines:
         vals = pd.DataFrame(policy_records[b])["Containment Ratio"].to_numpy() * 100
         mean = np.mean(vals)
         std = np.std(vals, ddof=1) if len(vals) > 1 else 0.0
-        margin = 1.96 * (std / np.sqrt(len(vals)))
+        n = len(vals)
+        t_crit = t.ppf(0.975, df=n-1) if n > 1 else 1.96
+        margin = t_crit * (std / np.sqrt(n)) if n > 0 else 0.0
         means.append(mean)
         errors.append(margin)
+        colors.append(color_map.get(b, "#808080"))
         
-    bars = ax.bar(labels, means, yerr=errors, color="#3498db", edgecolor="black", error_kw=dict(ecolor="black", lw=1.5, capsize=4))
-    ax.set_ylabel("Average Containment Ratio (%)", fontsize=11, fontweight="bold")
-    ax.set_title("Containment Ratio Comparison (with 95% CI)", fontsize=13, fontweight="bold")
-    plt.xticks(rotation=30, ha="right")
-    ax.set_ylim(0, 105)
+    bars = ax.bar(
+        labels, 
+        means, 
+        yerr=errors, 
+        color=colors, 
+        edgecolor="black", 
+        error_kw=dict(ecolor="black", lw=1.5, capsize=4)
+    )
+    
+    for idx, bar in enumerate(bars):
+        b_key = baselines[idx]
+        if b_key == "runtime_fvs":
+            bar.set_edgecolor("#1E5631")
+            bar.set_linewidth(2.8)
+            bar.set_zorder(5)
+            
+    ax.set_ylabel("Average Containment Ratio (%)", fontsize=12, fontweight="bold")
+    ax.set_title("Containment Ratio Comparison by Policy (with 95% CI)", fontsize=14, fontweight="bold")
+    ax.set_xticks(range(len(labels)))
+    ax.set_xticklabels(labels, rotation=25, ha="right", fontsize=10)
+    ax.set_ylim(0, 145)
     ax.grid(axis="y", linestyle="--", alpha=0.5)
     
-    for bar in bars:
+    for idx, bar in enumerate(bars):
         height = bar.get_height()
-        ax.text(bar.get_x() + bar.get_width()/2.0, height + 1.5, f"{height:.1f}%", ha="center", va="bottom", fontsize=8.5, fontweight="bold")
+        ci = errors[idx]
+        ax.text(
+            bar.get_x() + bar.get_width()/2.0, 
+            height + ci + 1.2, 
+            f"{height:.2f}%", 
+            ha="center", 
+            va="bottom", 
+            fontsize=9.5, 
+            fontweight="bold"
+        )
         
+    df_fvs = pd.DataFrame(policy_records["runtime_fvs"])
+    fvs_vals = df_fvs["Containment Ratio"].to_numpy() * 100
+    
+    stars_rand = get_p_val_stars(fvs_vals, pd.DataFrame(policy_records["random_revocation"])["Containment Ratio"].to_numpy() * 100)
+    draw_sig_bracket(ax, 1, 9, 108, 1.5, stars_rand)
+    
+    stars_deg = get_p_val_stars(fvs_vals, pd.DataFrame(policy_records["degree_centrality"])["Containment Ratio"].to_numpy() * 100)
+    draw_sig_bracket(ax, 2, 9, 116, 1.5, stars_deg)
+    
+    stars_static = get_p_val_stars(fvs_vals, pd.DataFrame(policy_records["static_fvs"])["Containment Ratio"].to_numpy() * 100)
+    draw_sig_bracket(ax, 7, 9, 124, 1.5, stars_static)
+    
+    stars_pr = get_p_val_stars(fvs_vals, pd.DataFrame(policy_records["pagerank"])["Containment Ratio"].to_numpy() * 100)
+    draw_sig_bracket(ax, 4, 9, 132, 1.5, stars_pr)
+    
     fig.tight_layout()
     fig.savefig(figures_dir / "baseline_containment_ratio.png", dpi=600)
     fig.savefig(figures_dir / "baseline_containment_ratio.pdf")
     plt.close(fig)
     
-    # 2. K_before vs K_after
-    fig, ax = plt.subplots(figsize=(10, 6))
+    # 2. K_before vs K_after (K footprint boxplot)
+    fig, ax = plt.subplots(figsize=(12, 7.5))
     k_before_mean = np.mean([r["Infected Before"] for r in policy_records["runtime_fvs"]])
     data_k_after = [pd.DataFrame(policy_records[b])["Infected After"].to_numpy() for b in baselines]
     
-    ax.boxplot(data_k_after, patch_artist=True,
-               boxprops=dict(facecolor="#f1c40f", color="black"),
-               medianprops=dict(color="red", linewidth=1.5))
+    bp = ax.boxplot(data_k_after, patch_artist=True)
+    
+    for idx, box in enumerate(bp['boxes']):
+        b_key = baselines[idx]
+        box.set_facecolor(color_map.get(b_key, "#7f7f7f"))
+        if b_key == "runtime_fvs":
+            box.set_edgecolor("#1E5631")
+            box.set_linewidth(2.8)
+            box.set_alpha(0.9)
+        else:
+            box.set_edgecolor("black")
+            box.set_linewidth(1.0)
+            box.set_alpha(0.5)
+            
+    for idx, median in enumerate(bp['medians']):
+        b_key = baselines[idx]
+        if b_key == "runtime_fvs":
+            median.set_color("#000000")
+            median.set_linewidth(3.0)
+        else:
+            median.set_color("red")
+            median.set_linewidth(1.8)
+            
+    for whisker in bp['whiskers']:
+        whisker.set_linewidth(0.8)
+        whisker.set_color("#555555")
+    for cap in bp['caps']:
+        cap.set_linewidth(0.8)
+        cap.set_color("#555555")
+        
     ax.axhline(y=k_before_mean, color="red", linestyle="--", linewidth=1.5, label=f"Mean K Before ({k_before_mean:.2f})")
-    ax.set_ylabel("Infected Agents Footprint (K)", fontsize=11, fontweight="bold")
-    ax.set_title("Compromise Footprint (K After) by Containment Policy", fontsize=13, fontweight="bold")
+    ax.set_ylabel("Infected Agents Footprint (K)", fontsize=12, fontweight="bold")
+    ax.set_title("Compromise Footprint (K After) by Containment Policy", fontsize=14, fontweight="bold")
     ax.set_xticks(range(1, len(baselines) + 1))
-    ax.set_xticklabels(labels, rotation=30, ha="right")
+    ax.set_xticklabels(labels, rotation=25, ha="right", fontsize=10)
     ax.grid(axis="y", linestyle="--", alpha=0.5)
-    ax.legend()
+    ax.legend(fontsize=11)
     fig.tight_layout()
     fig.savefig(figures_dir / "baseline_k_footprint.png", dpi=600)
     fig.savefig(figures_dir / "baseline_k_footprint.pdf")
     plt.close(fig)
     
     # 3. Propagation Depth Comparison
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(12, 7.5))
     depth_before_mean = np.mean([r["Propagation Depth Before"] for r in policy_records["runtime_fvs"]])
     data_depth_after = [pd.DataFrame(policy_records[b])["Propagation Depth After"].to_numpy() for b in baselines]
     
-    ax.boxplot(data_depth_after, patch_artist=True,
-               boxprops=dict(facecolor="#9b59b6", color="black"),
-               medianprops=dict(color="red", linewidth=1.5))
+    bp = ax.boxplot(data_depth_after, patch_artist=True)
+    
+    for idx, box in enumerate(bp['boxes']):
+        b_key = baselines[idx]
+        box.set_facecolor(color_map.get(b_key, "#7f7f7f"))
+        if b_key == "runtime_fvs":
+            box.set_edgecolor("#1E5631")
+            box.set_linewidth(2.8)
+            box.set_alpha(0.9)
+        else:
+            box.set_edgecolor("black")
+            box.set_linewidth(1.0)
+            box.set_alpha(0.5)
+            
+    for idx, median in enumerate(bp['medians']):
+        b_key = baselines[idx]
+        if b_key == "runtime_fvs":
+            median.set_color("#000000")
+            median.set_linewidth(3.0)
+        else:
+            median.set_color("red")
+            median.set_linewidth(1.8)
+            
+    for whisker in bp['whiskers']:
+        whisker.set_linewidth(0.8)
+        whisker.set_color("#555555")
+    for cap in bp['caps']:
+        cap.set_linewidth(0.8)
+        cap.set_color("#555555")
+        
     ax.axhline(y=depth_before_mean, color="red", linestyle="--", linewidth=1.5, label=f"Mean Depth Before ({depth_before_mean:.2f})")
-    ax.set_ylabel("Propagation Depth (Hops)", fontsize=11, fontweight="bold")
-    ax.set_title("Propagation Depth After Containment by Policy", fontsize=13, fontweight="bold")
+    ax.set_ylabel("Propagation Depth (Hops)", fontsize=12, fontweight="bold")
+    ax.set_title("Propagation Depth After Containment by Policy", fontsize=14, fontweight="bold")
     ax.set_xticks(range(1, len(baselines) + 1))
-    ax.set_xticklabels(labels, rotation=30, ha="right")
+    ax.set_xticklabels(labels, rotation=25, ha="right", fontsize=10)
     ax.grid(axis="y", linestyle="--", alpha=0.5)
-    ax.legend()
+    ax.legend(fontsize=11)
     fig.tight_layout()
     fig.savefig(figures_dir / "baseline_propagation_depth.png", dpi=600)
     fig.savefig(figures_dir / "baseline_propagation_depth.pdf")
     plt.close(fig)
     
     # 4. Message Reduction Comparison
-    fig, ax = plt.subplots(figsize=(10, 6))
-    msg_red_means = [np.mean(pd.DataFrame(policy_records[b])["Message Reduction"]) for b in baselines]
+    fig, ax = plt.subplots(figsize=(12, 7.5))
+    msg_red_means = []
     msg_red_errors = []
+    colors_msg = []
     for b in baselines:
         vals = pd.DataFrame(policy_records[b])["Message Reduction"].to_numpy()
+        mean = np.mean(vals)
         std = np.std(vals, ddof=1) if len(vals) > 1 else 0.0
-        margin = 1.96 * (std / np.sqrt(len(vals)))
+        n = len(vals)
+        t_crit = t.ppf(0.975, df=n-1) if n > 1 else 1.96
+        margin = t_crit * (std / np.sqrt(n)) if n > 0 else 0.0
+        msg_red_means.append(mean)
         msg_red_errors.append(margin)
+        colors_msg.append(color_map.get(b, "#808080"))
         
-    bars = ax.bar(labels, msg_red_means, yerr=msg_red_errors, color="#e67e22", edgecolor="black", error_kw=dict(ecolor="black", lw=1.5, capsize=4))
-    ax.set_ylabel("Average Message Reduction Count", fontsize=11, fontweight="bold")
-    ax.set_title("Communication Overhead Reduction by Policy", fontsize=13, fontweight="bold")
-    plt.xticks(rotation=30, ha="right")
+    bars = ax.bar(
+        labels, 
+        msg_red_means, 
+        yerr=msg_red_errors, 
+        color=colors_msg, 
+        edgecolor="black", 
+        error_kw=dict(ecolor="black", lw=1.5, capsize=4)
+    )
+    
+    for idx, bar in enumerate(bars):
+        b_key = baselines[idx]
+        if b_key == "runtime_fvs":
+            bar.set_edgecolor("#1E5631")
+            bar.set_linewidth(2.8)
+            bar.set_zorder(5)
+            
+    ax.set_ylabel("Average Message Reduction Count", fontsize=12, fontweight="bold")
+    ax.set_title("Communication Overhead Reduction by Policy", fontsize=14, fontweight="bold")
+    ax.set_xticks(range(len(labels)))
+    ax.set_xticklabels(labels, rotation=25, ha="right", fontsize=10)
     ax.grid(axis="y", linestyle="--", alpha=0.5)
-    for bar in bars:
+    
+    ax.set_ylim(0, max(msg_red_means) * 1.25 if max(msg_red_means) > 0 else 1.0)
+    
+    for idx, bar in enumerate(bars):
         height = bar.get_height()
-        ax.text(bar.get_x() + bar.get_width()/2.0, height + (max(msg_red_means)*0.02), f"{height:.1f}", ha="center", va="bottom", fontsize=8.5, fontweight="bold")
+        ci = msg_red_errors[idx]
+        ax.text(
+            bar.get_x() + bar.get_width()/2.0, 
+            height + ci + (max(msg_red_means) * 0.02 if max(msg_red_means) > 0 else 0.1), 
+            f"{height:.2f}", 
+            ha="center", 
+            va="bottom", 
+            fontsize=9.5, 
+            fontweight="bold"
+        )
+        
     fig.tight_layout()
     fig.savefig(figures_dir / "baseline_message_reduction.png", dpi=600)
     fig.savefig(figures_dir / "baseline_message_reduction.pdf")
@@ -1960,51 +2164,42 @@ def save_baseline_plots(policy_records: dict[str, list[dict]], figures_dir: Path
     
     # 5. Revocation Cost Comparison
     fig, ax = plt.subplots(figsize=(12, 7.5))
-    import scipy.stats
-    
-    color_map = {
-        "runtime_fvs": "#2E8B57",
-        "static_fvs": "#F4A261",
-        "degree_centrality": "#4C78A8",
-        "betweenness_centrality": "#4C78A8",
-        "pagerank": "#4C78A8",
-        "random_revocation": "#4C78A8",
-        "supervisor_only": "#9C6ADE",
-        "compromised_only": "#8C8C8C",
-        "no_containment": "#D3D3D3",
-        "department_isolation": "#D2B48C"
-    }
-    
     cost_means = []
     cost_errors = []
-    colors = []
+    colors_cost = []
     for b in baselines:
         vals = pd.DataFrame(policy_records[b])["FVS Size"].to_numpy()
         mean = np.mean(vals)
         std = np.std(vals, ddof=1) if len(vals) > 1 else 0.0
         n = len(vals)
-        t_crit = scipy.stats.t.ppf(0.975, df=n-1) if n > 1 else 1.96
+        t_crit = t.ppf(0.975, df=n-1) if n > 1 else 1.96
         margin = t_crit * (std / np.sqrt(n)) if n > 0 else 0.0
-        
         cost_means.append(mean)
         cost_errors.append(margin)
-        colors.append(color_map.get(b, "#4C78A8"))
+        colors_cost.append(color_map.get(b, "#808080"))
         
     bars = ax.bar(
         labels, 
         cost_means, 
         yerr=cost_errors, 
-        color=colors, 
+        color=colors_cost, 
         edgecolor="black", 
         error_kw=dict(ecolor="black", lw=1.5, capsize=4)
     )
+    
+    for idx, bar in enumerate(bars):
+        b_key = baselines[idx]
+        if b_key == "runtime_fvs":
+            bar.set_edgecolor("#1E5631")
+            bar.set_linewidth(2.8)
+            bar.set_zorder(5)
+            
     ax.set_ylabel("Average Revocation Budget (Nodes)", fontsize=12, fontweight="bold")
     ax.set_title("Operational Revocation Budget by Policy", fontsize=14, fontweight="bold")
     ax.set_xticks(range(len(labels)))
-    ax.set_xticklabels(labels, rotation=25, ha="right", fontsize=11)
+    ax.set_xticklabels(labels, rotation=25, ha="right", fontsize=10)
     ax.grid(axis="y", linestyle="--", alpha=0.5)
     
-    # Calculate padding for text labels on top of bars
     ax.set_ylim(0, max(cost_means) * 1.28 if max(cost_means) > 0 else 1.0)
     
     for idx, bar in enumerate(bars):
@@ -2029,7 +2224,6 @@ def save_baseline_plots(policy_records: dict[str, list[dict]], figures_dir: Path
             fontweight="bold"
         )
         
-    # Publication-style note below the figure
     note_text = (
         "Note: Degree Centrality, Betweenness Centrality, PageRank, Random Revocation, and Runtime FVS "
         "operate under an identical runtime revocation budget (tau_runtime). Static FVS computes the minimum "
@@ -2038,7 +2232,6 @@ def save_baseline_plots(policy_records: dict[str, list[dict]], figures_dir: Path
     fig.text(0.05, 0.02, note_text, fontsize=9.5, wrap=True, family="sans-serif", style="italic")
     
     plt.subplots_adjust(bottom=0.22)
-    
     fig.savefig(figures_dir / "baseline_revocation_cost.png", dpi=600, bbox_inches="tight")
     fig.savefig(figures_dir / "baseline_revocation_cost.pdf", bbox_inches="tight")
     fig.savefig(figures_dir / "operational_revocation_budget.png", dpi=600, bbox_inches="tight")
@@ -2046,31 +2239,88 @@ def save_baseline_plots(policy_records: dict[str, list[dict]], figures_dir: Path
     plt.close(fig)
     
     # 6. Runtime Comparison
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(12, 7.5))
     time_means = [np.mean(pd.DataFrame(policy_records[b])["Runtime Execution Time"]) * 1000 for b in baselines]
-    bars = ax.bar(labels, time_means, color="#1abc9c", edgecolor="black")
-    ax.set_ylabel("Average Containment Execution Time (ms)", fontsize=11, fontweight="bold")
-    ax.set_title("Computational Decision Overhead by Policy", fontsize=13, fontweight="bold")
-    plt.xticks(rotation=30, ha="right")
+    colors_time = [color_map.get(b, "#808080") for b in baselines]
+    
+    bars = ax.bar(labels, time_means, color=colors_time, edgecolor="black")
+    
+    for idx, bar in enumerate(bars):
+        b_key = baselines[idx]
+        if b_key == "runtime_fvs":
+            bar.set_edgecolor("#1E5631")
+            bar.set_linewidth(2.8)
+            bar.set_zorder(5)
+            
+    ax.set_ylabel("Average Containment Execution Time (ms)", fontsize=12, fontweight="bold")
+    ax.set_title("Computational Decision Overhead by Policy", fontsize=14, fontweight="bold")
+    ax.set_xticks(range(len(labels)))
+    ax.set_xticklabels(labels, rotation=25, ha="right", fontsize=10)
     ax.set_yscale("log")
     ax.grid(axis="y", linestyle="--", alpha=0.5, which="both")
+    
     for bar in bars:
         height = bar.get_height()
-        ax.text(bar.get_x() + bar.get_width()/2.0, height * 1.1, f"{height:.3f}ms", ha="center", va="bottom", fontsize=8, fontweight="bold")
+        ax.text(
+            bar.get_x() + bar.get_width()/2.0, 
+            height * 1.25, 
+            f"{height:.3f} ms" if height >= 0.001 else f"{height*1000:.1f} \u03bcs", 
+            ha="center", 
+            va="bottom", 
+            fontsize=8.5, 
+            fontweight="bold"
+        )
+        
     fig.tight_layout()
     fig.savefig(figures_dir / "baseline_runtime_comparison.png", dpi=600)
     fig.savefig(figures_dir / "baseline_runtime_comparison.pdf")
     plt.close(fig)
     
     # 7. Pareto Frontier
-    fig, ax = plt.subplots(figsize=(10, 6.5))
+    fig, ax = plt.subplots(figsize=(12, 8))
     x_costs = [np.mean(pd.DataFrame(policy_records[b])["FVS Size"]) for b in baselines]
     y_ratios = [np.mean(pd.DataFrame(policy_records[b])["Containment Ratio"]) * 100 for b in baselines]
     
-    ax.scatter(x_costs, y_ratios, color="black", s=100, zorder=5)
+    for idx, b in enumerate(baselines):
+        color = color_map.get(b, "#808080")
+        is_fvs = (b == "runtime_fvs")
+        size = 180 if is_fvs else 100
+        ew = 2.8 if is_fvs else 1.0
+        ec = "#1E5631" if is_fvs else "black"
+        ax.scatter(
+            x_costs[idx], 
+            y_ratios[idx], 
+            color=color, 
+            s=size, 
+            edgecolor=ec, 
+            linewidth=ew, 
+            zorder=6,
+            label=label_map[b]
+        )
+        
+    offsets = {
+        "no_containment": (10, -10),
+        "random_revocation": (10, 10),
+        "degree_centrality": (10, 5),
+        "betweenness_centrality": (10, -12),
+        "pagerank": (-15, -15),
+        "supervisor_only": (-10, -15),
+        "department_isolation": (10, 10),
+        "static_fvs": (10, -10),
+        "compromised_only": (10, 10),
+        "runtime_fvs": (-15, 12)
+    }
     
-    for i, txt in enumerate(labels):
-        ax.annotate(txt, (x_costs[i], y_ratios[i]), xytext=(5, 5), textcoords="offset points", fontsize=9, fontweight="bold")
+    for idx, b in enumerate(baselines):
+        off = offsets.get(b, (5, 5))
+        ax.annotate(
+            label_map[b], 
+            (x_costs[idx], y_ratios[idx]), 
+            xytext=off, 
+            textcoords="offset points", 
+            fontsize=9.5, 
+            fontweight="bold"
+        )
         
     sorted_indices = np.argsort(x_costs)
     pareto_x = []
@@ -2082,30 +2332,59 @@ def save_baseline_plots(policy_records: dict[str, list[dict]], figures_dir: Path
             pareto_y.append(y_ratios[idx])
             max_y = y_ratios[idx]
             
-    ax.plot(pareto_x, pareto_y, color="red", linestyle="-", linewidth=2, label="Pareto Frontier", zorder=3)
-    ax.fill_between(pareto_x, pareto_y, color="red", alpha=0.1, zorder=1)
+    ax.plot(pareto_x, pareto_y, color="#2E8B57", linestyle="-", linewidth=3.5, label="Pareto Frontier", zorder=3)
+    ax.fill_between(pareto_x, pareto_y, color="#D3D3D3", alpha=0.18, zorder=1)
     
-    ax.set_xlabel("Average Operational Cost (Revoked Nodes Count)", fontsize=11, fontweight="bold")
-    ax.set_ylabel("Average Containment Ratio (%)", fontsize=11, fontweight="bold")
-    ax.set_title("Pareto Trade-off: Containment Ratio vs Operational Cost", fontsize=13, fontweight="bold")
+    ax.set_xlabel("Average Operational Cost (Revoked Nodes Count)", fontsize=12, fontweight="bold")
+    ax.set_ylabel("Average Containment Ratio (%)", fontsize=12, fontweight="bold")
+    ax.set_title("Pareto Trade-off: Containment Ratio vs Operational Cost", fontsize=14, fontweight="bold")
     ax.grid(linestyle="--", alpha=0.5)
-    ax.set_ylim(0, 105)
-    ax.legend(loc="lower right")
+    ax.set_ylim(-5, 115)
+    ax.set_xlim(-0.2, max(x_costs) * 1.15)
+    ax.legend(loc="lower right", fontsize=10.5)
     fig.tight_layout()
     fig.savefig(figures_dir / "baseline_pareto_frontier.png", dpi=600)
     fig.savefig(figures_dir / "baseline_pareto_frontier.pdf")
     plt.close(fig)
     
     # 8. Runtime τ distribution
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(12, 7.5))
     data_tau = [pd.DataFrame(policy_records[b])["FVS Size"].to_numpy() for b in baselines]
-    ax.boxplot(data_tau, patch_artist=True,
-               boxprops=dict(facecolor="#2ecc71", color="black"),
-               medianprops=dict(color="blue", linewidth=1.5))
-    ax.set_ylabel("Revoked Nodes Count (Size)", fontsize=11, fontweight="bold")
-    ax.set_title("Distribution of Revocation Set Size by Policy", fontsize=13, fontweight="bold")
+    
+    bp = ax.boxplot(data_tau, patch_artist=True)
+    
+    for idx, box in enumerate(bp['boxes']):
+        b_key = baselines[idx]
+        box.set_facecolor(color_map.get(b_key, "#7f7f7f"))
+        if b_key == "runtime_fvs":
+            box.set_edgecolor("#1E5631")
+            box.set_linewidth(2.8)
+            box.set_alpha(0.9)
+        else:
+            box.set_edgecolor("black")
+            box.set_linewidth(1.0)
+            box.set_alpha(0.5)
+            
+    for idx, median in enumerate(bp['medians']):
+        b_key = baselines[idx]
+        if b_key == "runtime_fvs":
+            median.set_color("#000000")
+            median.set_linewidth(3.0)
+        else:
+            median.set_color("red")
+            median.set_linewidth(1.8)
+            
+    for whisker in bp['whiskers']:
+        whisker.set_linewidth(0.8)
+        whisker.set_color("#555555")
+    for cap in bp['caps']:
+        cap.set_linewidth(0.8)
+        cap.set_color("#555555")
+        
+    ax.set_ylabel("Revoked Nodes Count (Size)", fontsize=12, fontweight="bold")
+    ax.set_title("Distribution of Revocation Set Size by Policy", fontsize=14, fontweight="bold")
     ax.set_xticks(range(1, len(baselines) + 1))
-    ax.set_xticklabels(labels, rotation=30, ha="right")
+    ax.set_xticklabels(labels, rotation=25, ha="right", fontsize=10)
     ax.grid(axis="y", linestyle="--", alpha=0.5)
     fig.tight_layout()
     fig.savefig(figures_dir / "baseline_tau_distribution.png", dpi=600)
@@ -2114,61 +2393,89 @@ def save_baseline_plots(policy_records: dict[str, list[dict]], figures_dir: Path
 
 
 def save_aggregate_charts(results: pd.DataFrame, figures_dir: Path) -> None:
-    """Save τ distribution and compromise propagation comparison charts in PNG (600 DPI) and PDF formats."""
+    """Save τ distribution and compromise propagation comparison charts in PNG (600 DPI) and PDF formats with publication styling."""
+    import matplotlib.pyplot as plt
+    import numpy as np
+
     # 1. runtime_tau_histogram.png & .pdf
     tau_min = int(results["Runtime τ"].min())
     tau_max = int(results["Runtime τ"].max())
     bins = [value - 0.5 for value in range(tau_min, tau_max + 2)]
-    figure, axis = plt.subplots(figsize=(8, 5))
-    axis.hist(results["Runtime τ"], bins=bins, edgecolor="black", color="#3498db")
+    figure, axis = plt.subplots(figsize=(8, 5.5))
+    axis.hist(results["Runtime τ"], bins=bins, edgecolor="black", color="#2E8B57", zorder=3)
     axis.set_xticks(range(tau_min, tau_max + 1))
-    axis.set_xlabel("Runtime τ")
-    axis.set_ylabel("Run Count")
-    axis.set_title("Runtime τ Distribution")
+    axis.set_xlabel("Runtime \u03c4", fontsize=12, fontweight="bold")
+    axis.set_ylabel("Run Count", fontsize=12, fontweight="bold")
+    axis.set_title("Runtime \u03c4 Distribution (FVS Revocation Size)", fontsize=13, fontweight="bold")
+    axis.grid(axis="y", linestyle="--", alpha=0.5, zorder=1)
     figure.tight_layout()
     figure.savefig(figures_dir / "runtime_tau_histogram.png", dpi=600)
     figure.savefig(figures_dir / "runtime_tau_histogram.pdf")
     plt.close(figure)
 
     # 2. containment_ratio_histogram.png & .pdf
-    figure, axis = plt.subplots(figsize=(8, 5))
-    axis.hist(results["Containment Efficiency"] * 100, bins=10, edgecolor="black", color="#2ecc71")
-    axis.set_xlabel("Containment Ratio (%)")
-    axis.set_ylabel("Run Count")
-    axis.set_title("Containment Ratio Distribution")
+    figure, axis = plt.subplots(figsize=(8, 5.5))
+    axis.hist(results["Containment Efficiency"] * 100, bins=10, edgecolor="black", color="#2E8B57", zorder=3)
+    axis.set_xlabel("Containment Ratio (%)", fontsize=12, fontweight="bold")
+    axis.set_ylabel("Run Count", fontsize=12, fontweight="bold")
+    axis.set_title("Containment Ratio Distribution (Runtime FVS)", fontsize=13, fontweight="bold")
+    axis.grid(axis="y", linestyle="--", alpha=0.5, zorder=1)
     figure.tight_layout()
     figure.savefig(figures_dir / "containment_ratio_histogram.png", dpi=600)
     figure.savefig(figures_dir / "containment_ratio_histogram.pdf")
     plt.close(figure)
 
     # 3. k_before_after_boxplot.png & .pdf
-    figure, axis = plt.subplots(figsize=(8, 5))
-    axis.boxplot([results["K Before"], results["K After"]])
-    axis.set_xticklabels(["K Before", "K After"])
-    axis.set_ylabel("Infected Agents Count")
-    axis.set_title("Compromise Footprint Before vs After Revocation")
+    figure, axis = plt.subplots(figsize=(8, 5.5))
+    bp = axis.boxplot([results["K Before"], results["K After"]], patch_artist=True)
+    
+    # Colors: K Before = No Containment (Red), K After = Runtime FVS (Green)
+    box_colors = ["#D62728", "#2E8B57"]
+    for idx, box in enumerate(bp['boxes']):
+        box.set_facecolor(box_colors[idx])
+        box.set_alpha(0.6)
+        box.set_edgecolor("black")
+        box.set_linewidth(1.2)
+        
+    for median in bp['medians']:
+        median.set_color("black")
+        median.set_linewidth(2.5)
+        
+    for whisker in bp['whiskers']:
+        whisker.set_linewidth(0.8)
+        whisker.set_color("#555555")
+    for cap in bp['caps']:
+        cap.set_linewidth(0.8)
+        cap.set_color("#555555")
+        
+    axis.set_xticklabels(["K Before (No Containment)", "K After (Runtime FVS)"], fontsize=11, fontweight="bold")
+    axis.set_ylabel("Infected Agents Count (Footprint)", fontsize=12, fontweight="bold")
+    axis.set_title("Compromise Footprint Before vs After Revocation", fontsize=13, fontweight="bold")
+    axis.grid(axis="y", linestyle="--", alpha=0.5)
     figure.tight_layout()
     figure.savefig(figures_dir / "k_before_after_boxplot.png", dpi=600)
     figure.savefig(figures_dir / "k_before_after_boxplot.pdf")
     plt.close(figure)
 
     # 4. runtime_tau_vs_messages.png & .pdf
-    figure, axis = plt.subplots(figsize=(8, 5))
-    axis.scatter(results["Runtime τ"], results["Messages Before"], alpha=0.6, color="#e74c3c", edgecolor="black")
-    axis.set_xlabel("Runtime τ")
-    axis.set_ylabel("Messages Before")
-    axis.set_title("Runtime τ vs Message Count")
+    figure, axis = plt.subplots(figsize=(8, 5.5))
+    axis.scatter(results["Runtime τ"], results["Messages Before"], alpha=0.6, color="#2E8B57", edgecolor="black", s=60, zorder=3)
+    axis.set_xlabel("Runtime \u03c4", fontsize=12, fontweight="bold")
+    axis.set_ylabel("Messages Sent Before Revocation", fontsize=12, fontweight="bold")
+    axis.set_title("Runtime \u03c4 vs Message Count", fontsize=13, fontweight="bold")
+    axis.grid(linestyle="--", alpha=0.5, zorder=1)
     figure.tight_layout()
     figure.savefig(figures_dir / "runtime_tau_vs_messages.png", dpi=600)
     figure.savefig(figures_dir / "runtime_tau_vs_messages.pdf")
     plt.close(figure)
 
     # 5. runtime_tau_vs_kbefore.png & .pdf
-    figure, axis = plt.subplots(figsize=(8, 5))
-    axis.scatter(results["Runtime τ"], results["K Before"], alpha=0.6, color="#9b59b6", edgecolor="black")
-    axis.set_xlabel("Runtime τ")
-    axis.set_ylabel("K Before (Infected Downstream Agents)")
-    axis.set_title("Runtime τ vs Initial Compromise Footprint")
+    figure, axis = plt.subplots(figsize=(8, 5.5))
+    axis.scatter(results["Runtime τ"], results["K Before"], alpha=0.6, color="#2E8B57", edgecolor="black", s=60, zorder=3)
+    axis.set_xlabel("Runtime \u03c4", fontsize=12, fontweight="bold")
+    axis.set_ylabel("K Before (Infected Downstream Agents)", fontsize=12, fontweight="bold")
+    axis.set_title("Runtime \u03c4 vs Initial Compromise Footprint", fontsize=13, fontweight="bold")
+    axis.grid(linestyle="--", alpha=0.5, zorder=1)
     figure.tight_layout()
     figure.savefig(figures_dir / "runtime_tau_vs_kbefore.png", dpi=600)
     figure.savefig(figures_dir / "runtime_tau_vs_kbefore.pdf")

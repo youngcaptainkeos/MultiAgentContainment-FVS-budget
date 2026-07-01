@@ -1,6 +1,6 @@
 # MAS Simulator Changes Log
 
-This file records all architectural and logic changes implemented in the Runtime Trust Graph Containment Framework to extend department collaboration, run before/after evaluations, track comparative containment metrics, build a reproducible large-scale experimental pipeline, and support publication-quality visualization.
+This file records all architectural, logic, and visualization changes implemented in the Runtime Trust Graph Containment Framework.
 
 ---
 
@@ -31,14 +31,13 @@ This file records all architectural and logic changes implemented in the Runtime
 
 ---
 
-## 3. Publication-Ready Figure Exports
+## 3. Publication-Ready Figure Exports & Visual Improvements
 - **File**: [experiment_runner.py](file:///c:/PDocuments/ccbd/langchain%20internals/langgraph-fvs-test/experiment_runner.py)
-- **Change**: Added 8 comparative visualization figures exported in both 600 DPI PNG and vector PDF format:
-  1. `baseline_containment_ratio.png`/`.pdf`: Average Containment Ratio with 95% confidence intervals.
-  2. `baseline_k_footprint.png`/`.pdf`: Boxplot comparing K_before vs K_after for all baselines.
-  3. `baseline_propagation_depth.png`/`.pdf`: Boxplot comparing propagation depth after containment.
-  4. `baseline_message_reduction.png`/`.pdf`: Bar chart of message count reduction.
-  5. `baseline_revocation_cost.png`/`.pdf` and `operational_revocation_budget.png`/`.pdf`: Upgraded to top-tier publication quality with black error bars, Student's t 95% confidence intervals, statistical annotations on Runtime FVS and Static FVS, and a detailed figure caption note at the bottom.
-  6. `baseline_runtime_comparison.png`/`.pdf`: Computational execution overhead (log scale).
-  7. `baseline_pareto_frontier.png`/`.pdf`: Scatter plot of Containment Ratio vs Operational Cost with highlighted Pareto frontier.
-  8. `baseline_tau_distribution.png`/`.pdf`: Distribution of revocation size by policy.
+- **Unified Color Palette**: Applied consistently across all figures.
+- **Visual Emphasis on Runtime FVS**: Bar charts and boxplots emphasize Runtime FVS with thicker borders (`2.8` line width), darker outlines, and higher drawing order (`zorder=5`).
+- **Statistical Significance Brackets**: Added bracket markers for major comparisons (`Runtime FVS vs. Random, Degree, Static FVS, PageRank`) using standard significance stars (`*`, `**`, `***`, `****`, or `ns`) calculated dynamically.
+- **Boxplot Enhancements**: Thicker median lines (`1.8` or `3.0` for Runtime FVS), lighter fills (`alpha=0.5`), and thinner whiskers (`0.8`).
+- **Pareto Frontier Upgrade**: Dominated region shaded (`alpha=0.18`), frontier line thickened (`3.5`), scatter points styled by baseline color scheme, and label text manually offset to eliminate overlaps.
+- **Logarithmic Runtime Chart**: Displays logarithmic overhead comparisons with text-based millisecond and microsecond annotations on top of each bar.
+- **Theorem Graph Layout Spacing**: Increased department centers spacing (Research, Engineering, Executive, Security, Operations), enlarged department labels (`fontsize=16`), thickened path connections (`2.8` internal, `3.2` cross), and faded inactive nodes and edges (`alpha=0.08`).
+- **NetworkX zorder Parameter Fix**: Resolved a compatibility `TypeError` by programmatically setting `zorder` on the matplotlib collections returned by `nx.draw_networkx_nodes` instead of passing it as a keyword argument.
