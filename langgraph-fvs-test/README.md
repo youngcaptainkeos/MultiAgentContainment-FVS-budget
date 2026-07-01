@@ -22,20 +22,30 @@ Instead of using static, pre-defined department channels, the simulator dynamica
 
 ---
 
-## 🛡️ Containment Policy Baselines
+## 🧪 Experimental Methodology
 
-To evaluate the mathematical and practical effectiveness of **Runtime FVS**, the simulator evaluates 10 distinct containment policies under identical workflow inputs, compromised nodes, runtime graphs, and seeds:
+Our validation pipeline implements a rigorous comparative methodology to evaluate the containment efficacy, operational cost, and decision overhead of the **Runtime FVS** containment policy:
 
-1. **No Containment**: No containment actions are taken; compromise propagates unhindered.
-2. **Random Revocation**: Randomly selects and revokes $τ_{FVS}$ nodes from active candidates (averaged over 100 independent trials per run).
-3. **Degree Centrality**: Revokes the top $τ_{FVS}$ nodes with the highest degree centrality.
-4. **Betweenness Centrality**: Revokes the top $τ_{FVS}$ nodes with the highest betweenness centrality.
-5. **PageRank**: Revokes the top $τ_{FVS}$ nodes with the highest PageRank score.
-6. **Supervisor Only**: Revokes department supervisor agents of active departments in the route.
-7. **Department Isolation**: Disconnects all inter-department communication edges connected to the compromised department, keeping agent states intact.
-8. **Static Enterprise FVS**: Revokes the complete static FVS set calculated once on the global enterprise graph topology (higher operational cost).
-9. **Oracle Compromised Node**: Directly revokes the compromised agent itself (blocks propagation but incurs high disruption cost).
-10. **Runtime FVS**: The reference dynamic feedback vertex set algorithm (our method).
+1. **Benchmark Dataset**: 200 distinct enterprise tasks divided into 10 workflow families (e.g., `security_incident_response`, `financial_planning`, `ai_governance`, `infrastructure_deployment`, etc.) representing realistic cross-department operations.
+2. **Identical Run Conditions**: For each of the 200 workflows, we keep the starting workflow route, compromised node, dynamic runtime trust graph topology, and random seed **identical** across all tested containment strategies. The containment strategy is the *only* independent variable changed.
+3. **Simultaneous Baseline Evaluation**: Each run evaluates the following 10 containment policies:
+   - **No Containment**: Allows propagation to terminate naturally without revocation.
+   - **Random Revocation**: Revokes $τ_{FVS}$ nodes randomly (averaged over 100 trials).
+   - **Degree Centrality**: Revokes the top $τ_{FVS}$ nodes by degree centrality on the runtime graph.
+   - **Betweenness Centrality**: Revokes the top $τ_{FVS}$ nodes by betweenness centrality on the runtime graph.
+   - **PageRank**: Revokes the top $τ_{FVS}$ nodes by PageRank on the runtime graph.
+   - **Supervisor Only**: Revokes department supervisors of active departments in the route.
+   - **Department Isolation**: Disconnects all inter-department communication edges connected to the compromised department, keeping agent states intact.
+   - **Static Enterprise FVS**: Revokes the complete static FVS set calculated once on the global enterprise graph topology (higher operational cost).
+   - **Oracle Compromised Node**: Directly revokes the compromised agent itself (blocks propagation but incurs high disruption cost).
+   - **Runtime FVS**: The reference dynamic feedback vertex set algorithm (our method).
+4. **Statistical Significance Testing**:
+   - Normality of paired differences is automatically verified using the **Shapiro-Wilk test**.
+   - If normality assumptions hold, the pipeline performs a **paired t-test**; otherwise, it performs the non-parametric **Wilcoxon signed-rank test**.
+   - All raw $p$-values are adjusted using the **Benjamini-Hochberg False Discovery Rate (FDR) control procedure** to correct for multiple comparisons.
+   - Effect sizes are computed using **Cohen's d** (for t-tests) and **Rank-biserial correlation** (for Wilcoxon).
+5. **Confidence Interval Student-t Verification**:
+   - Recomputes 95% Confidence Intervals using the Student's t-distribution critical values ($t_{\text{crit}} \approx 1.972$ for $n=200$) and compares them against standard normal approximation bounds ($z = 1.96$) to log any precision shifts.
 
 ---
 
@@ -82,14 +92,21 @@ All plots are exported in **600 DPI PNG** and **vector PDF** formats:
 
 ## 🚀 Running the Experiments
 
-### 1. Prerequisites
+### 1. Clone the Repository
+Clone the repository from GitHub:
+```bash
+git clone https://github.com/youngcaptainkeos/MultiAgentContainment-FVS-budget.git
+cd MultiAgentContainment-FVS-budget
+```
+
+### 2. Prerequisites
 Install dependencies in your python virtual environment:
 ```bash
 pip install -r requirements.txt
 pip install scipy
 ```
 
-### 2. Run Configuration
+### 3. Run Configuration
 Configure runs, seeds, and rotation settings inside `experiment_config.json`:
 ```json
 {
@@ -102,7 +119,7 @@ Configure runs, seeds, and rotation settings inside `experiment_config.json`:
 }
 ```
 
-### 3. Execution
+### 4. Execution
 Run the simulator to execute the 200 workflows, perform baseline testing, compute statistical significance, and generate all plots:
 ```bash
 python experiment_runner.py
