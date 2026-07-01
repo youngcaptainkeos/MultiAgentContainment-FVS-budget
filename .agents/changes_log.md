@@ -4,49 +4,41 @@ This file records all architectural and logic changes implemented in the Runtime
 
 ---
 
-## 1. Role-Based Runtime Graph Construction
-- **File**: [enterprise_topology.py](file:///c:/PDocuments/ccbd/langchain%20internals/langgraph-fvs-test/enterprise_topology.py)
-- **Change**: Replaced static entrypoint edges with dynamic internal collaboration modeling.
-- **Shortcutting Algorithm**: Implemented `contract_department_graph(dept, active_nodes)`. Starting with the department's full internal topology, it shortcuts inactive nodes (`u -> v -> w` becomes `u -> w`) and removes them, generating the active collaboration and review loops dynamically.
-- **Integration**: Integrated `contract_department_graph` directly inside `build_enterprise_runtime_trust_graph`.
+## 1. Baseline Containment Policy Evaluation Suite
+- **File**: [experiment_runner.py](file:///c:/PDocuments/ccbd/langchain%20internals/langgraph-fvs-test/experiment_runner.py)
+- **Change**: Added evaluation of 10 different containment policies for each of the 200 simulation runs. Every policy runs under identical seed, workflow path, compromised node, and propagation configurations.
+- **Implemented Baselines**:
+  1. **No Containment**: Baseline with no revocation.
+  2. **Random Revocation**: Revokes exactly $τ_{FVS}$ nodes randomly (averaged over 100 trials).
+  3. **Degree Centrality**: Revokes top $τ_{FVS}$ nodes by degree centrality.
+  4. **Betweenness Centrality**: Revokes top $τ_{FVS}$ nodes by betweenness centrality.
+  5. **PageRank**: Revokes top $τ_{FVS}$ nodes by PageRank.
+  6. **Supervisor-only Revocation**: Revokes only active department supervisor agents.
+  7. **Department Isolation**: Disconnects inter-department edges connected to the compromised department without revoking agents.
+  8. **Static Enterprise FVS**: Revokes the complete static FVS set of the full enterprise graph.
+  9. **Compromised Node Only**: Revokes only the initially compromised node.
+  10. **Runtime FVS**: The reference feedback vertex set containment algorithm (existing).
 
 ---
 
-## 2. Before/After Containment Evaluation
+## 2. Statistical Analysis and Significance Verification
 - **File**: [experiment_runner.py](file:///c:/PDocuments/ccbd/langchain%20internals/langgraph-fvs-test/experiment_runner.py)
-- **Change**: Integrated two separate compromise propagation runs for every scenario.
-- **BFS Depth Propagation**: Implemented `propagate_compromise_depth(graph, compromised_node)` which performs BFS and calculates the maximum propagation depth (hops from the source) in linear time.
-- **Comparative Execution**: Runs BFS on the initial graph, removes the calculated FVS set, runs BFS on the revoked graph, and compares outcomes.
+- **Significance Tests**: Computes means, medians, standard deviations, and 95% confidence intervals for all policies. Runs paired t-tests (where normality assumptions hold via Shapiro-Wilk) and Wilcoxon signed-rank tests, along with Cohen's d effect sizes.
+- **Outputs**:
+  - Saved individual summary CSVs for each baseline: `policy_{name}_summary.csv`.
+  - Saved overall comparison table: `overall_comparison.csv`.
+  - Saved pairwise statistical results: `pairwise_statistical_comparison.csv`.
 
 ---
 
-## 3. Large-Scale Experimental Pipeline
+## 3. Publication-Ready Figure Exports
 - **File**: [experiment_runner.py](file:///c:/PDocuments/ccbd/langchain%20internals/langgraph-fvs-test/experiment_runner.py)
-- **Change**: Scaled up to **200 runs** to fully cover the new unquoted CSV dataset `datasets/enterprise_prompts.csv` using a custom robust parsing routine `load_enterprise_prompts`. deterministic rotation and performance measurements are integrated.
-
----
-
-## 4. Automated Statistical Summary Reports
-- **File**: [experiment_runner.py](file:///c:/PDocuments/ccbd/langchain%20internals/langgraph-fvs-test/experiment_runner.py)
-- **Change**: Added automated generation of 5 statistical report CSVs directly under the experiment folder:
-  - `summary_statistics.csv`
-  - `runtime_tau_distribution.csv`
-  - `summary_by_workflow.csv`
-  - `summary_by_compromise.csv`
-  - `summary_by_size.csv`
-
----
-
-## 5. Separated Visualization and Numerical Summaries
-- **File**: [experiment_runner.py](file:///c:/PDocuments/ccbd/langchain%20internals/langgraph-fvs-test/experiment_runner.py)
-- **Graph Cleanliness**: Removed all statistics/info box overlays from `save_trace_graph` and `save_before_after_comparison` figures to ensure graph layouts remain clean and uncluttered.
-- **Clean Subplot Titles**: Renamed titles in the 4-panel theorem flow to:
-  - `(a) Runtime Trust Graph`
-  - `(b) SCC & Feedback Cycles`
-  - `(c) Before Containment`
-  - `(d) After FVS Containment`
-- **Standalone Executive Summary Table Figures**:
-  - Implemented `save_run_summary_table` to render a separate publication-quality summary table for every run.
-  - The table cleanly summarizes 14 metrics: *Run ID, Workflow, Compromised Agent, Runtime τ_FVS, FVS Size, Active Agents, Active Edges, SCC Count, Largest SCC Size, Infected Before, Infected After, Containment Efficiency, Propagation Depth (Before -> After), and Graph Hash*.
-  - Alternating light-grey row backgrounds and navy header colors are applied for premium legibility.
-  - Exports each summary table as both **600 DPI PNG** and **vector PDF**.
+- **Change**: Added 8 comparative visualization figures exported in both 600 DPI PNG and vector PDF format:
+  1. `baseline_containment_ratio.png`/`.pdf`: Average Containment Ratio with 95% confidence intervals.
+  2. `baseline_k_footprint.png`/`.pdf`: Boxplot comparing K_before vs K_after for all baselines.
+  3. `baseline_propagation_depth.png`/`.pdf`: Boxplot comparing propagation depth after containment.
+  4. `baseline_message_reduction.png`/`.pdf`: Bar chart of message count reduction.
+  5. `baseline_revocation_cost.png`/`.pdf`: Operational cost comparison (FVS size).
+  6. `baseline_runtime_comparison.png`/`.pdf`: Computational execution overhead (log scale).
+  7. `baseline_pareto_frontier.png`/`.pdf`: Scatter plot of Containment Ratio vs Operational Cost with highlighted Pareto frontier.
+  8. `baseline_tau_distribution.png`/`.pdf`: Distribution of revocation size by policy.
