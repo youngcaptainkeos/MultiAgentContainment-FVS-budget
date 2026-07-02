@@ -1002,7 +1002,7 @@ def compute_graph_hash(graph: nx.DiGraph) -> str:
     return hashlib.sha256(graph_str.encode("utf-8")).hexdigest()
 
 
-def route_prompt_departments(prompt: str) -> list[str]:
+def route_prompt_departments(prompt: str, template_offset: int = 0) -> list[str]:
     """Return a deterministic varied department route activated by a prompt."""
     family = classify_workflow_family(prompt)
     
@@ -1026,7 +1026,7 @@ def route_prompt_departments(prompt: str) -> list[str]:
     
     # Hash the prompt to deterministically select a template from the slice
     selector = sum(ord(character) for character in prompt)
-    route = templates[selector % len(templates)]["route"]
+    route = templates[(selector + template_offset) % len(templates)]["route"]
     
     return list(route)
 
@@ -1061,6 +1061,7 @@ def contract_department_graph(dept: str, active_nodes: set[str]) -> list[tuple[s
 def build_enterprise_runtime_trust_graph(
     prompt: str,
     seed: int = DEFAULT_SEED,
+    template_offset: int = 0,
 ) -> nx.DiGraph:
     """Build the prompt-specific runtime trust graph.
 
@@ -1069,7 +1070,7 @@ def build_enterprise_runtime_trust_graph(
     only the supervisor/cross-department links used by that route.
     """
     static_graph = build_enterprise_topology(seed=seed)
-    route = route_prompt_departments(prompt)
+    route = route_prompt_departments(prompt, template_offset=template_offset)
     active_departments = set(route)
     
     # 1. Classify workflow family and select the specific template
@@ -1092,7 +1093,7 @@ def build_enterprise_runtime_trust_graph(
     templates = WORKFLOW_TEMPLATES[start_idx:end_idx]
     
     selector = sum(ord(character) for character in prompt)
-    template = templates[selector % len(templates)]
+    template = templates[(selector + template_offset) % len(templates)]
     
     # 2. Find mandatory nodes for the route (supervisors and cross-department endpoints)
     mandatory_nodes = set()
