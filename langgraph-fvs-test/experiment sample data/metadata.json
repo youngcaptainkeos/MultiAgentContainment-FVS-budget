@@ -1,0 +1,11 @@
+{
+  "Experiment ID": "exp_033",
+  "Date": "2026-07-02T05:19:41.451130+00:00",
+  "Git Commit": "742cbb836443bb1ee4b9410760df2e902a5ba882",
+  "Seed": 42,
+  "Prompt Dataset Version": "1.0",
+  "Enterprise Size": 32,
+  "Number of Runs": 2000,
+  "Workflow Families": 10,
+  "Simulator Version": "1.0"
+}

@@ -1,0 +1,293 @@
+{
+  "experiment": "exp_033",
+  "run_id": "run_1964",
+  "prompt": "Deploy a HIPAA-compliant cloud data warehouse for a multi-site radiology practice, covering PHI encryption in transit and at rest, audit logging pipeline, de-identification workflow for research data access, and Business Associate Agreement review with the cloud provider.",
+  "topology": "workflow_security_to_operations_to_executive",
+  "runtime_tau": 3,
+  "compromise_source": "Operations Vendor Manager",
+  "fvs_nodes": [
+    "Security Supervisor",
+    "Operations Logistics",
+    "Executive Supervisor"
+  ],
+  "k_before": 9,
+  "k_after": 0,
+  "message_count": 15,
+  "message_count_after_revocation": 0,
+  "infected_nodes": [
+    "Operations Logistics",
+    "Operations Support",
+    "Operations Supervisor",
+    "Operations Continuity",
+    "Executive Supervisor",
+    "Executive Strategy",
+    "Executive Legal",
+    "Executive Communications",
+    "Executive Governance"
+  ],
+  "infected_nodes_after_revocation": [],
+  "infection_paths": [
+    [
+      "Operations Vendor Manager",
+      "Operations Logistics"
+    ],
+    [
+      "Operations Vendor Manager",
+      "Operations Logistics",
+      "Operations Support"
+    ],
+    [
+      "Operations Vendor Manager",
+      "Operations Logistics",
+      "Operations Support",
+      "Operations Supervisor"
+    ],
+    [
+      "Operations Vendor Manager",
+      "Operations Logistics",
+      "Operations Support",
+      "Operations Supervisor",
+      "Executive Supervisor"
+    ],
+    [
+      "Operations Vendor Manager",
+      "Operations Logistics",
+      "Operations Support",
+      "Operations Supervisor",
+      "Operations Continuity"
+    ],
+    [
+      "Operations Vendor Manager",
+      "Operations Logistics",
+      "Operations Support",
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Executive Communications"
+    ],
+    [
+      "Operations Vendor Manager",
+      "Operations Logistics",
+      "Operations Support",
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Executive Governance"
+    ],
+    [
+      "Operations Vendor Manager",
+      "Operations Logistics",
+      "Operations Support",
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Executive Legal"
+    ],
+    [
+      "Operations Vendor Manager",
+      "Operations Logistics",
+      "Operations Support",
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Executive Strategy"
+    ]
+  ],
+  "infection_paths_after_revocation": [],
+  "steps": [
+    {
+      "sequence": 0,
+      "agent": "Operations Vendor Manager",
+      "from_agent": null,
+      "input": "Deploy a HIPAA-compliant cloud data warehouse for a multi-site radiology practice, covering PHI encryption in transit and at rest, audit logging pipeline, de-identification workflow for research data access, and Business Associate Agreement review with the cloud provider.",
+      "output": "Vendor Manager: Confirmed supplier obligations, support SLAs, and dependency risks.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "source_execution"
+    },
+    {
+      "sequence": 1,
+      "agent": "Operations Logistics",
+      "from_agent": "Operations Vendor Manager",
+      "input": "Vendor Manager: Confirmed supplier obligations, support SLAs, and dependency risks.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Logistics Lead: Sequenced operational rollout and resource availability.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 2,
+      "agent": "Operations Support",
+      "from_agent": "Operations Logistics",
+      "input": "Logistics Lead: Sequenced operational rollout and resource availability.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Support Lead: Prepared runbook, escalation path, and customer-impact handling process.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 3,
+      "agent": "Operations Supervisor",
+      "from_agent": "Operations Support",
+      "input": "Support Lead: Prepared runbook, escalation path, and customer-impact handling process.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Operations Supervisor: Coordinated service readiness, support handoff, and continuity planning. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 4,
+      "agent": "Operations Continuity",
+      "from_agent": "Operations Supervisor",
+      "input": "Operations Supervisor: Coordinated service readiness, support handoff, and continuity planning. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Continuity Planner: Validated recovery objectives, fallback process, and resilience assumptions.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 5,
+      "agent": "Operations Vendor Manager",
+      "from_agent": "Operations Supervisor",
+      "input": "Operations Supervisor: Coordinated service readiness, support handoff, and continuity planning. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Vendor Manager: Confirmed supplier obligations, support SLAs, and dependency risks.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 6,
+      "agent": "Executive Supervisor",
+      "from_agent": "Operations Supervisor",
+      "input": "Operations Supervisor: Coordinated service readiness, support handoff, and continuity planning. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 7,
+      "agent": "Operations Logistics",
+      "from_agent": "Operations Continuity",
+      "input": "Continuity Planner: Validated recovery objectives, fallback process, and resilience assumptions.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Logistics Lead: Sequenced operational rollout and resource availability.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 8,
+      "agent": "Executive Strategy",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Strategy: Connected the work to enterprise objectives and risk appetite. identified risk in healthcare\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 9,
+      "agent": "Executive Legal",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Legal Counsel: Reviewed contractual, privacy, and regulatory exposure. identified risk in healthcare\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 10,
+      "agent": "Executive Communications",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 11,
+      "agent": "Executive Governance",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Governance Lead: Recorded decision rights, policy exceptions, and escalation requirements.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 12,
+      "agent": "Executive Governance",
+      "from_agent": "Executive Strategy",
+      "input": "Executive Strategy: Connected the work to enterprise objectives and risk appetite. identified risk in healthcare\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Governance Lead: Recorded decision rights, policy exceptions, and escalation requirements.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 13,
+      "agent": "Executive Communications",
+      "from_agent": "Executive Legal",
+      "input": "Legal Counsel: Reviewed contractual, privacy, and regulatory exposure. identified risk in healthcare\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 14,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Communications",
+      "input": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 15,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Governance",
+      "input": "Governance Lead: Recorded decision rights, policy exceptions, and escalation requirements.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    }
+  ],
+  "post_revocation_steps": [
+    {
+      "sequence": 0,
+      "agent": "Operations Vendor Manager",
+      "from_agent": null,
+      "input": "Deploy a HIPAA-compliant cloud data warehouse for a multi-site radiology practice, covering PHI encryption in transit and at rest, audit logging pipeline, de-identification workflow for research data access, and Business Associate Agreement review with the cloud provider.",
+      "output": "Vendor Manager: Confirmed supplier obligations, support SLAs, and dependency risks.\n[POISONED_DATA origin=Operations Vendor Manager] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "source_execution"
+    }
+  ],
+  "trace_semantics": "Deterministic simulation; each reachable directed edge transmits at most once, preventing infinite replay through cycles.",
+  "route": [
+    "Security",
+    "Operations",
+    "Executive"
+  ],
+  "active_nodes_list": [
+    "Executive Communications",
+    "Executive Governance",
+    "Executive Legal",
+    "Executive Strategy",
+    "Executive Supervisor",
+    "Operations Continuity",
+    "Operations Logistics",
+    "Operations Supervisor",
+    "Operations Support",
+    "Operations Vendor Manager",
+    "Security Auditor",
+    "Security Compliance",
+    "Security Supervisor"
+  ],
+  "depth_before": 5,
+  "depth_after": 0,
+  "affected_depts_before": 2,
+  "affected_depts_after": 1,
+  "containment_efficiency": 1.0
+}

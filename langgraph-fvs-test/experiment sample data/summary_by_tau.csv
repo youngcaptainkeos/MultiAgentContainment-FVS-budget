@@ -1,0 +1,6 @@
+Runtime τ_FVS,Topologies,Runs,Mean K Before,Mean K After,Containment Success Rate (%),Mean Message Count,Total Message Count,Mean Containment Efficiency,Mean Propagation Depth Before,Mean Propagation Depth After
+2,4,294,8.52,0.58,61.56,16.18,4756,0.93,4.31,0.51
+3,18,793,9.98,0.9,60.03,17.5,13875,0.91,5.37,0.71
+4,15,405,14.14,0.76,60.49,24.38,9875,0.95,7.18,0.62
+5,10,359,18.87,0.94,60.17,31.72,11387,0.95,9.8,0.7
+6,3,149,21.92,0.93,55.03,36.78,5480,0.96,10.19,0.71

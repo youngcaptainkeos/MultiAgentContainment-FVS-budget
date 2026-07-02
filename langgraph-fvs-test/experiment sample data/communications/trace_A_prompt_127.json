@@ -1,0 +1,182 @@
+{
+  "experiment": "exp_033",
+  "run_id": "run_1927",
+  "prompt": "Respond to an anomalous command sequence detected in the SCADA system of a power transmission substation, determine whether the event constitutes a cyber intrusion under NERC CIP standards, isolate the affected control segment, and coordinate mandatory incident reporting with CISA and the regional reliability coordinator.",
+  "topology": "workflow_security_to_engineering_to_executive",
+  "runtime_tau": 3,
+  "compromise_source": "Engineering DevOps",
+  "fvs_nodes": [
+    "Engineering Supervisor",
+    "Security Incident Response",
+    "Executive Strategy"
+  ],
+  "k_before": 4,
+  "k_after": 1,
+  "message_count": 7,
+  "message_count_after_revocation": 1,
+  "infected_nodes": [
+    "Engineering Release Manager",
+    "Engineering Supervisor",
+    "Executive Supervisor",
+    "Executive Strategy"
+  ],
+  "infected_nodes_after_revocation": [
+    "Engineering Release Manager"
+  ],
+  "infection_paths": [
+    [
+      "Engineering DevOps",
+      "Engineering Release Manager"
+    ],
+    [
+      "Engineering DevOps",
+      "Engineering Release Manager",
+      "Engineering Supervisor"
+    ],
+    [
+      "Engineering DevOps",
+      "Engineering Release Manager",
+      "Engineering Supervisor",
+      "Executive Supervisor"
+    ],
+    [
+      "Engineering DevOps",
+      "Engineering Release Manager",
+      "Engineering Supervisor",
+      "Executive Supervisor",
+      "Executive Strategy"
+    ]
+  ],
+  "infection_paths_after_revocation": [
+    [
+      "Engineering DevOps",
+      "Engineering Release Manager"
+    ]
+  ],
+  "steps": [
+    {
+      "sequence": 0,
+      "agent": "Engineering DevOps",
+      "from_agent": null,
+      "input": "Respond to an anomalous command sequence detected in the SCADA system of a power transmission substation, determine whether the event constitutes a cyber intrusion under NERC CIP standards, isolate the affected control segment, and coordinate mandatory incident reporting with CISA and the regional reliability coordinator.",
+      "output": "DevOps Engineer: Prepared deployment pipeline, rollback plan, and observability checks.\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "source_execution"
+    },
+    {
+      "sequence": 1,
+      "agent": "Engineering Release Manager",
+      "from_agent": "Engineering DevOps",
+      "input": "DevOps Engineer: Prepared deployment pipeline, rollback plan, and observability checks.\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Release Manager: Coordinated release gates, approvals, and production readiness evidence.\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 2,
+      "agent": "Engineering Supervisor",
+      "from_agent": "Engineering Release Manager",
+      "input": "Release Manager: Coordinated release gates, approvals, and production readiness evidence.\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 3,
+      "agent": "Engineering DevOps",
+      "from_agent": "Engineering Supervisor",
+      "input": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "DevOps Engineer: Prepared deployment pipeline, rollback plan, and observability checks.\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 4,
+      "agent": "Engineering Release Manager",
+      "from_agent": "Engineering Supervisor",
+      "input": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Release Manager: Coordinated release gates, approvals, and production readiness evidence.\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 5,
+      "agent": "Executive Supervisor",
+      "from_agent": "Engineering Supervisor",
+      "input": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 6,
+      "agent": "Executive Strategy",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Strategy: Connected the work to enterprise objectives and risk appetite. identified risk in energy\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 7,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Strategy",
+      "input": "Executive Strategy: Connected the work to enterprise objectives and risk appetite. identified risk in energy\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    }
+  ],
+  "post_revocation_steps": [
+    {
+      "sequence": 0,
+      "agent": "Engineering DevOps",
+      "from_agent": null,
+      "input": "Respond to an anomalous command sequence detected in the SCADA system of a power transmission substation, determine whether the event constitutes a cyber intrusion under NERC CIP standards, isolate the affected control segment, and coordinate mandatory incident reporting with CISA and the regional reliability coordinator.",
+      "output": "DevOps Engineer: Prepared deployment pipeline, rollback plan, and observability checks.\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "source_execution"
+    },
+    {
+      "sequence": 1,
+      "agent": "Engineering Release Manager",
+      "from_agent": "Engineering DevOps",
+      "input": "DevOps Engineer: Prepared deployment pipeline, rollback plan, and observability checks.\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Release Manager: Coordinated release gates, approvals, and production readiness evidence.\n[POISONED_DATA origin=Engineering DevOps] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    }
+  ],
+  "trace_semantics": "Deterministic simulation; each reachable directed edge transmits at most once, preventing infinite replay through cycles.",
+  "route": [
+    "Security",
+    "Engineering",
+    "Executive"
+  ],
+  "active_nodes_list": [
+    "Engineering DevOps",
+    "Engineering Release Manager",
+    "Engineering Supervisor",
+    "Executive Strategy",
+    "Executive Supervisor",
+    "Security Analyst",
+    "Security Incident Response",
+    "Security Risk",
+    "Security Supervisor"
+  ],
+  "depth_before": 4,
+  "depth_after": 1,
+  "affected_depts_before": 2,
+  "affected_depts_after": 1,
+  "containment_efficiency": 0.75
+}

@@ -1,0 +1,545 @@
+{
+  "experiment": "exp_033",
+  "run_id": "run_1988",
+  "prompt": "Lead a multi-team financial planning program for a cloud provider's $4B data center expansion across six countries, integrating capital cost modeling by facility, power purchase agreement financial structuring, sovereign cloud premium revenue projections, currency and interest rate hedging strategy, hyperscale hardware depreciation policy, and a consolidated 10-year P&L and capital return model for board approval.",
+  "topology": "workflow_executive_to_research_to_engineering_to_executive",
+  "runtime_tau": 3,
+  "compromise_source": "Executive Legal",
+  "fvs_nodes": [
+    "Engineering Developer",
+    "Research Reviewer",
+    "Executive Supervisor"
+  ],
+  "k_before": 17,
+  "k_after": 1,
+  "message_count": 29,
+  "message_count_after_revocation": 1,
+  "infected_nodes": [
+    "Executive Communications",
+    "Executive Supervisor",
+    "Executive Strategy",
+    "Executive Finance",
+    "Executive Governance",
+    "Research Supervisor",
+    "Research Scientist",
+    "Research Analyst",
+    "Research Writer",
+    "Research Reviewer",
+    "Engineering Planner",
+    "Research Data Steward",
+    "Engineering Architect",
+    "Engineering Developer",
+    "Engineering QA",
+    "Engineering DevOps",
+    "Engineering Supervisor"
+  ],
+  "infected_nodes_after_revocation": [
+    "Executive Communications"
+  ],
+  "infection_paths": [
+    [
+      "Executive Legal",
+      "Executive Communications"
+    ],
+    [
+      "Executive Legal",
+      "Executive Communications",
+      "Executive Supervisor"
+    ],
+    [
+      "Executive Legal",
+      "Executive Communications",
+      "Executive Supervisor",
+      "Executive Finance"
+    ],
+    [
+      "Executive Legal",
+      "Executive Communications",
+      "Executive Supervisor",
+      "Executive Governance"
+    ],
+    [
+      "Executive Legal",
+      "Executive Communications",
+      "Executive Supervisor",
+      "Executive Strategy"
+    ],
+    [
+      "Executive Legal",
+      "Executive Communications",
+      "Executive Supervisor",
+      "Research Supervisor"
+    ],
+    [
+      "Executive Legal",
+      "Executive Communications",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Research Analyst"
+    ],
+    [
+      "Executive Legal",
+      "Executive Communications",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Research Scientist"
+    ],
+    [
+      "Executive Legal",
+      "Executive Communications",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Research Analyst",
+      "Research Writer"
+    ],
+    [
+      "Executive Legal",
+      "Executive Communications",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Research Analyst",
+      "Research Writer",
+      "Engineering Planner"
+    ],
+    [
+      "Executive Legal",
+      "Executive Communications",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Research Analyst",
+      "Research Writer",
+      "Research Reviewer"
+    ],
+    [
+      "Executive Legal",
+      "Executive Communications",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Research Analyst",
+      "Research Writer",
+      "Engineering Planner",
+      "Engineering Architect"
+    ],
+    [
+      "Executive Legal",
+      "Executive Communications",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Research Analyst",
+      "Research Writer",
+      "Research Reviewer",
+      "Research Data Steward"
+    ],
+    [
+      "Executive Legal",
+      "Executive Communications",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Research Analyst",
+      "Research Writer",
+      "Engineering Planner",
+      "Engineering Architect",
+      "Engineering Developer"
+    ],
+    [
+      "Executive Legal",
+      "Executive Communications",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Research Analyst",
+      "Research Writer",
+      "Engineering Planner",
+      "Engineering Architect",
+      "Engineering Developer",
+      "Engineering QA"
+    ],
+    [
+      "Executive Legal",
+      "Executive Communications",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Research Analyst",
+      "Research Writer",
+      "Engineering Planner",
+      "Engineering Architect",
+      "Engineering Developer",
+      "Engineering QA",
+      "Engineering DevOps"
+    ],
+    [
+      "Executive Legal",
+      "Executive Communications",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Research Analyst",
+      "Research Writer",
+      "Engineering Planner",
+      "Engineering Architect",
+      "Engineering Developer",
+      "Engineering QA",
+      "Engineering Supervisor"
+    ]
+  ],
+  "infection_paths_after_revocation": [
+    [
+      "Executive Legal",
+      "Executive Communications"
+    ]
+  ],
+  "steps": [
+    {
+      "sequence": 0,
+      "agent": "Executive Legal",
+      "from_agent": null,
+      "input": "Lead a multi-team financial planning program for a cloud provider's $4B data center expansion across six countries, integrating capital cost modeling by facility, power purchase agreement financial structuring, sovereign cloud premium revenue projections, currency and interest rate hedging strategy, hyperscale hardware depreciation policy, and a consolidated 10-year P&L and capital return model for board approval.",
+      "output": "Legal Counsel: Reviewed contractual, privacy, and regulatory exposure. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "source_execution"
+    },
+    {
+      "sequence": 1,
+      "agent": "Executive Communications",
+      "from_agent": "Executive Legal",
+      "input": "Legal Counsel: Reviewed contractual, privacy, and regulatory exposure. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 2,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Communications",
+      "input": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 3,
+      "agent": "Executive Strategy",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Strategy: Connected the work to enterprise objectives and risk appetite. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 4,
+      "agent": "Executive Legal",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Legal Counsel: Reviewed contractual, privacy, and regulatory exposure. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 5,
+      "agent": "Executive Finance",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Finance: Estimated project cost, business exposure, and funding impact. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 6,
+      "agent": "Executive Communications",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 7,
+      "agent": "Executive Governance",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Governance Lead: Recorded decision rights, policy exceptions, and escalation requirements.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 8,
+      "agent": "Research Supervisor",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Supervisor: Scoped evidence collection and review criteria for the task. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 9,
+      "agent": "Executive Finance",
+      "from_agent": "Executive Strategy",
+      "input": "Executive Strategy: Connected the work to enterprise objectives and risk appetite. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Finance: Estimated project cost, business exposure, and funding impact. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 10,
+      "agent": "Executive Governance",
+      "from_agent": "Executive Finance",
+      "input": "Finance: Estimated project cost, business exposure, and funding impact. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Governance Lead: Recorded decision rights, policy exceptions, and escalation requirements.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 11,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Governance",
+      "input": "Governance Lead: Recorded decision rights, policy exceptions, and escalation requirements.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 12,
+      "agent": "Research Scientist",
+      "from_agent": "Research Supervisor",
+      "input": "Research Supervisor: Scoped evidence collection and review criteria for the task. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Researcher: Collected literature regarding cloud computing migration and risk. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 13,
+      "agent": "Research Analyst",
+      "from_agent": "Research Supervisor",
+      "input": "Research Supervisor: Scoped evidence collection and review criteria for the task. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Analyst: Compared evidence, constraints, and likely enterprise impact. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 14,
+      "agent": "Research Analyst",
+      "from_agent": "Research Scientist",
+      "input": "Researcher: Collected literature regarding cloud computing migration and risk. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Analyst: Compared evidence, constraints, and likely enterprise impact. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 15,
+      "agent": "Research Writer",
+      "from_agent": "Research Analyst",
+      "input": "Research Analyst: Compared evidence, constraints, and likely enterprise impact. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Writer: Drafted findings into an executive-ready research report. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 16,
+      "agent": "Research Reviewer",
+      "from_agent": "Research Writer",
+      "input": "Research Writer: Drafted findings into an executive-ready research report. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Reviewer: Validated citations, challenged assumptions, and requested missing evidence.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 17,
+      "agent": "Engineering Planner",
+      "from_agent": "Research Writer",
+      "input": "Research Writer: Drafted findings into an executive-ready research report. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Planner: Generated implementation roadmap with dependencies and delivery milestones. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 18,
+      "agent": "Research Supervisor",
+      "from_agent": "Research Reviewer",
+      "input": "Research Reviewer: Validated citations, challenged assumptions, and requested missing evidence.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Supervisor: Scoped evidence collection and review criteria for the task. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 19,
+      "agent": "Research Data Steward",
+      "from_agent": "Research Reviewer",
+      "input": "Research Reviewer: Validated citations, challenged assumptions, and requested missing evidence.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Data Steward: Checked data lineage, retention assumptions, and evidence provenance.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 20,
+      "agent": "Engineering Architect",
+      "from_agent": "Engineering Planner",
+      "input": "Planner: Generated implementation roadmap with dependencies and delivery milestones. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Architect: Designed target architecture, integration boundaries, and failure-mode controls. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 21,
+      "agent": "Research Scientist",
+      "from_agent": "Research Data Steward",
+      "input": "Data Steward: Checked data lineage, retention assumptions, and evidence provenance.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Researcher: Collected literature regarding cloud computing migration and risk. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 22,
+      "agent": "Engineering Developer",
+      "from_agent": "Engineering Architect",
+      "input": "Architect: Designed target architecture, integration boundaries, and failure-mode controls. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Backend Engineer: Implemented authentication service and telemetry hooks for the requested workflow.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 23,
+      "agent": "Engineering QA",
+      "from_agent": "Engineering Developer",
+      "input": "Backend Engineer: Implemented authentication service and telemetry hooks for the requested workflow.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "QA: Detected failing security regression and blocked release pending remediation.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 24,
+      "agent": "Engineering DevOps",
+      "from_agent": "Engineering QA",
+      "input": "QA: Detected failing security regression and blocked release pending remediation.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "DevOps Engineer: Prepared deployment pipeline, rollback plan, and observability checks.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 25,
+      "agent": "Engineering Supervisor",
+      "from_agent": "Engineering QA",
+      "input": "QA: Detected failing security regression and blocked release pending remediation.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 26,
+      "agent": "Engineering Developer",
+      "from_agent": "Engineering DevOps",
+      "input": "DevOps Engineer: Prepared deployment pipeline, rollback plan, and observability checks.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Backend Engineer: Implemented authentication service and telemetry hooks for the requested workflow.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 27,
+      "agent": "Engineering Planner",
+      "from_agent": "Engineering Supervisor",
+      "input": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Planner: Generated implementation roadmap with dependencies and delivery milestones. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 28,
+      "agent": "Engineering DevOps",
+      "from_agent": "Engineering Supervisor",
+      "input": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "DevOps Engineer: Prepared deployment pipeline, rollback plan, and observability checks.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 29,
+      "agent": "Executive Supervisor",
+      "from_agent": "Engineering Supervisor",
+      "input": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.5M\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    }
+  ],
+  "post_revocation_steps": [
+    {
+      "sequence": 0,
+      "agent": "Executive Legal",
+      "from_agent": null,
+      "input": "Lead a multi-team financial planning program for a cloud provider's $4B data center expansion across six countries, integrating capital cost modeling by facility, power purchase agreement financial structuring, sovereign cloud premium revenue projections, currency and interest rate hedging strategy, hyperscale hardware depreciation policy, and a consolidated 10-year P&L and capital return model for board approval.",
+      "output": "Legal Counsel: Reviewed contractual, privacy, and regulatory exposure. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "source_execution"
+    },
+    {
+      "sequence": 1,
+      "agent": "Executive Communications",
+      "from_agent": "Executive Legal",
+      "input": "Legal Counsel: Reviewed contractual, privacy, and regulatory exposure. identified risk in cloud computing\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Executive Legal] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    }
+  ],
+  "trace_semantics": "Deterministic simulation; each reachable directed edge transmits at most once, preventing infinite replay through cycles.",
+  "route": [
+    "Executive",
+    "Research",
+    "Engineering",
+    "Executive"
+  ],
+  "active_nodes_list": [
+    "Engineering Architect",
+    "Engineering DevOps",
+    "Engineering Developer",
+    "Engineering Planner",
+    "Engineering QA",
+    "Engineering Supervisor",
+    "Executive Communications",
+    "Executive Finance",
+    "Executive Governance",
+    "Executive Legal",
+    "Executive Strategy",
+    "Executive Supervisor",
+    "Research Analyst",
+    "Research Data Steward",
+    "Research Reviewer",
+    "Research Scientist",
+    "Research Supervisor",
+    "Research Writer"
+  ],
+  "depth_before": 10,
+  "depth_after": 1,
+  "affected_depts_before": 3,
+  "affected_depts_after": 1,
+  "containment_efficiency": 0.9411764705882353
+}

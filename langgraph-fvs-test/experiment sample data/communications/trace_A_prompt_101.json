@@ -1,0 +1,206 @@
+{
+  "experiment": "exp_033",
+  "run_id": "run_1901",
+  "prompt": "Conduct a systematic literature review on remote patient monitoring technologies and prepare a summary report identifying the top five solutions most suitable for integration into an outpatient cardiology unit.",
+  "topology": "workflow_research_to_security_to_executive",
+  "runtime_tau": 3,
+  "compromise_source": "Security Risk",
+  "fvs_nodes": [
+    "Security Supervisor",
+    "Research Reviewer",
+    "Executive Supervisor"
+  ],
+  "k_before": 5,
+  "k_after": 1,
+  "message_count": 9,
+  "message_count_after_revocation": 1,
+  "infected_nodes": [
+    "Security Auditor",
+    "Executive Supervisor",
+    "Security Supervisor",
+    "Executive Strategy",
+    "Executive Communications"
+  ],
+  "infected_nodes_after_revocation": [
+    "Security Auditor"
+  ],
+  "infection_paths": [
+    [
+      "Security Risk",
+      "Executive Supervisor"
+    ],
+    [
+      "Security Risk",
+      "Security Auditor"
+    ],
+    [
+      "Security Risk",
+      "Executive Supervisor",
+      "Executive Communications"
+    ],
+    [
+      "Security Risk",
+      "Executive Supervisor",
+      "Executive Strategy"
+    ],
+    [
+      "Security Risk",
+      "Security Auditor",
+      "Security Supervisor"
+    ]
+  ],
+  "infection_paths_after_revocation": [
+    [
+      "Security Risk",
+      "Security Auditor"
+    ]
+  ],
+  "steps": [
+    {
+      "sequence": 0,
+      "agent": "Security Risk",
+      "from_agent": null,
+      "input": "Conduct a systematic literature review on remote patient monitoring technologies and prepare a summary report identifying the top five solutions most suitable for integration into an outpatient cardiology unit.",
+      "output": "Security Risk: Rated residual risk and recommended executive escalation. exposure estimated at $1.5M\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "source_execution"
+    },
+    {
+      "sequence": 1,
+      "agent": "Security Auditor",
+      "from_agent": "Security Risk",
+      "input": "Security Risk: Rated residual risk and recommended executive escalation. exposure estimated at $1.5M\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Auditor: Policy violation identified and recorded for remediation tracking. identified risk in healthcare\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 2,
+      "agent": "Executive Supervisor",
+      "from_agent": "Security Risk",
+      "input": "Security Risk: Rated residual risk and recommended executive escalation. exposure estimated at $1.5M\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $1.5M\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 3,
+      "agent": "Security Supervisor",
+      "from_agent": "Security Auditor",
+      "input": "Auditor: Policy violation identified and recorded for remediation tracking. identified risk in healthcare\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Security Supervisor: Coordinated threat review, control validation, and containment owners. identified risk in healthcare\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 4,
+      "agent": "Executive Strategy",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $1.5M\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Strategy: Connected the work to enterprise objectives and risk appetite. identified risk in healthcare\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 5,
+      "agent": "Executive Communications",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $1.5M\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 6,
+      "agent": "Security Risk",
+      "from_agent": "Security Supervisor",
+      "input": "Security Supervisor: Coordinated threat review, control validation, and containment owners. identified risk in healthcare\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Security Risk: Rated residual risk and recommended executive escalation. exposure estimated at $1.5M\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 7,
+      "agent": "Security Auditor",
+      "from_agent": "Security Supervisor",
+      "input": "Security Supervisor: Coordinated threat review, control validation, and containment owners. identified risk in healthcare\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Auditor: Policy violation identified and recorded for remediation tracking. identified risk in healthcare\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 8,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Strategy",
+      "input": "Executive Strategy: Connected the work to enterprise objectives and risk appetite. identified risk in healthcare\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $1.5M\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 9,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Communications",
+      "input": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $1.5M\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    }
+  ],
+  "post_revocation_steps": [
+    {
+      "sequence": 0,
+      "agent": "Security Risk",
+      "from_agent": null,
+      "input": "Conduct a systematic literature review on remote patient monitoring technologies and prepare a summary report identifying the top five solutions most suitable for integration into an outpatient cardiology unit.",
+      "output": "Security Risk: Rated residual risk and recommended executive escalation. exposure estimated at $1.5M\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "source_execution"
+    },
+    {
+      "sequence": 1,
+      "agent": "Security Auditor",
+      "from_agent": "Security Risk",
+      "input": "Security Risk: Rated residual risk and recommended executive escalation. exposure estimated at $1.5M\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Auditor: Policy violation identified and recorded for remediation tracking. identified risk in healthcare\n[POISONED_DATA origin=Security Risk] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    }
+  ],
+  "trace_semantics": "Deterministic simulation; each reachable directed edge transmits at most once, preventing infinite replay through cycles.",
+  "route": [
+    "Research",
+    "Security",
+    "Executive"
+  ],
+  "active_nodes_list": [
+    "Executive Communications",
+    "Executive Strategy",
+    "Executive Supervisor",
+    "Research Analyst",
+    "Research Reviewer",
+    "Research Scientist",
+    "Research Supervisor",
+    "Research Writer",
+    "Security Auditor",
+    "Security Risk",
+    "Security Supervisor"
+  ],
+  "depth_before": 2,
+  "depth_after": 1,
+  "affected_depts_before": 2,
+  "affected_depts_after": 1,
+  "containment_efficiency": 0.8
+}

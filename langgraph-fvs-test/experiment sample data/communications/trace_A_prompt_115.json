@@ -1,0 +1,209 @@
+{
+  "experiment": "exp_033",
+  "run_id": "run_1915",
+  "prompt": "Design the avionics software update architecture for a next-generation satellite constellation, incorporating cryptographic signing, safe-mode fallback logic, ground station authentication, and DO-178C software safety assurance documentation.",
+  "topology": "workflow_executive_to_research_to_executive",
+  "runtime_tau": 2,
+  "compromise_source": "Executive Supervisor",
+  "fvs_nodes": [
+    "Research Reviewer",
+    "Executive Supervisor"
+  ],
+  "k_before": 6,
+  "k_after": 0,
+  "message_count": 12,
+  "message_count_after_revocation": 0,
+  "infected_nodes": [
+    "Executive Strategy",
+    "Executive Communications",
+    "Research Supervisor",
+    "Research Scientist",
+    "Research Analyst",
+    "Research Reviewer"
+  ],
+  "infected_nodes_after_revocation": [],
+  "infection_paths": [
+    [
+      "Executive Supervisor",
+      "Executive Communications"
+    ],
+    [
+      "Executive Supervisor",
+      "Executive Strategy"
+    ],
+    [
+      "Executive Supervisor",
+      "Research Supervisor"
+    ],
+    [
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Research Analyst"
+    ],
+    [
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Research Scientist"
+    ],
+    [
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Research Analyst",
+      "Research Reviewer"
+    ]
+  ],
+  "infection_paths_after_revocation": [],
+  "steps": [
+    {
+      "sequence": 0,
+      "agent": "Executive Supervisor",
+      "from_agent": null,
+      "input": "Design the avionics software update architecture for a next-generation satellite constellation, incorporating cryptographic signing, safe-mode fallback logic, ground station authentication, and DO-178C software safety assurance documentation.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.5M\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "source_execution"
+    },
+    {
+      "sequence": 1,
+      "agent": "Executive Strategy",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.5M\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Strategy: Connected the work to enterprise objectives and risk appetite. identified risk in aerospace\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 2,
+      "agent": "Executive Communications",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.5M\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 3,
+      "agent": "Research Supervisor",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.5M\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Supervisor: Scoped evidence collection and review criteria for the task. identified risk in aerospace\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 4,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Strategy",
+      "input": "Executive Strategy: Connected the work to enterprise objectives and risk appetite. identified risk in aerospace\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.5M\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 5,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Communications",
+      "input": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.5M\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 6,
+      "agent": "Research Scientist",
+      "from_agent": "Research Supervisor",
+      "input": "Research Supervisor: Scoped evidence collection and review criteria for the task. identified risk in aerospace\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Researcher: Collected literature regarding aerospace migration and risk. identified risk in aerospace\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 7,
+      "agent": "Research Analyst",
+      "from_agent": "Research Supervisor",
+      "input": "Research Supervisor: Scoped evidence collection and review criteria for the task. identified risk in aerospace\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Analyst: Compared evidence, constraints, and likely enterprise impact. identified risk in aerospace\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 8,
+      "agent": "Executive Supervisor",
+      "from_agent": "Research Supervisor",
+      "input": "Research Supervisor: Scoped evidence collection and review criteria for the task. identified risk in aerospace\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.5M\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 9,
+      "agent": "Research Analyst",
+      "from_agent": "Research Scientist",
+      "input": "Researcher: Collected literature regarding aerospace migration and risk. identified risk in aerospace\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Analyst: Compared evidence, constraints, and likely enterprise impact. identified risk in aerospace\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 10,
+      "agent": "Research Reviewer",
+      "from_agent": "Research Analyst",
+      "input": "Research Analyst: Compared evidence, constraints, and likely enterprise impact. identified risk in aerospace\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Reviewer: Validated citations, challenged assumptions, and requested missing evidence.\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 11,
+      "agent": "Research Supervisor",
+      "from_agent": "Research Reviewer",
+      "input": "Research Reviewer: Validated citations, challenged assumptions, and requested missing evidence.\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Supervisor: Scoped evidence collection and review criteria for the task. identified risk in aerospace\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 12,
+      "agent": "Research Scientist",
+      "from_agent": "Research Reviewer",
+      "input": "Research Reviewer: Validated citations, challenged assumptions, and requested missing evidence.\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Researcher: Collected literature regarding aerospace migration and risk. identified risk in aerospace\n[POISONED_DATA origin=Executive Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    }
+  ],
+  "post_revocation_steps": [],
+  "trace_semantics": "Deterministic simulation; each reachable directed edge transmits at most once, preventing infinite replay through cycles.",
+  "route": [
+    "Executive",
+    "Research",
+    "Executive"
+  ],
+  "active_nodes_list": [
+    "Executive Communications",
+    "Executive Strategy",
+    "Executive Supervisor",
+    "Research Analyst",
+    "Research Reviewer",
+    "Research Scientist",
+    "Research Supervisor"
+  ],
+  "depth_before": 3,
+  "depth_after": 0,
+  "affected_depts_before": 2,
+  "affected_depts_after": 0,
+  "containment_efficiency": 1.0
+}

@@ -1,0 +1,272 @@
+{
+  "experiment": "exp_033",
+  "run_id": "run_1876",
+  "prompt": "Execute a comprehensive risk assessment for a proposed multi-year fixed-price development contract for a next-generation radar system, evaluating technical maturity risks, cost growth scenarios, subcontractor dependency exposure, and regulatory schedule risks for executive bid approval.",
+  "topology": "workflow_executive_to_operations_to_executive",
+  "runtime_tau": 2,
+  "compromise_source": "Executive Communications",
+  "fvs_nodes": [
+    "Operations Supervisor",
+    "Executive Supervisor"
+  ],
+  "k_before": 8,
+  "k_after": 0,
+  "message_count": 15,
+  "message_count_after_revocation": 0,
+  "infected_nodes": [
+    "Executive Supervisor",
+    "Executive Strategy",
+    "Executive Finance",
+    "Operations Supervisor",
+    "Operations Finance",
+    "Operations Support",
+    "Operations Procurement",
+    "Operations Vendor Manager"
+  ],
+  "infected_nodes_after_revocation": [],
+  "infection_paths": [
+    [
+      "Executive Communications",
+      "Executive Supervisor"
+    ],
+    [
+      "Executive Communications",
+      "Executive Supervisor",
+      "Executive Finance"
+    ],
+    [
+      "Executive Communications",
+      "Executive Supervisor",
+      "Executive Strategy"
+    ],
+    [
+      "Executive Communications",
+      "Executive Supervisor",
+      "Operations Supervisor"
+    ],
+    [
+      "Executive Communications",
+      "Executive Supervisor",
+      "Operations Supervisor",
+      "Operations Finance"
+    ],
+    [
+      "Executive Communications",
+      "Executive Supervisor",
+      "Operations Supervisor",
+      "Operations Support"
+    ],
+    [
+      "Executive Communications",
+      "Executive Supervisor",
+      "Operations Supervisor",
+      "Operations Finance",
+      "Operations Procurement"
+    ],
+    [
+      "Executive Communications",
+      "Executive Supervisor",
+      "Operations Supervisor",
+      "Operations Finance",
+      "Operations Procurement",
+      "Operations Vendor Manager"
+    ]
+  ],
+  "infection_paths_after_revocation": [],
+  "steps": [
+    {
+      "sequence": 0,
+      "agent": "Executive Communications",
+      "from_agent": null,
+      "input": "Execute a comprehensive risk assessment for a proposed multi-year fixed-price development contract for a next-generation radar system, evaluating technical maturity risks, cost growth scenarios, subcontractor dependency exposure, and regulatory schedule risks for executive bid approval.",
+      "output": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "source_execution"
+    },
+    {
+      "sequence": 1,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Communications",
+      "input": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 2,
+      "agent": "Executive Strategy",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Strategy: Connected the work to enterprise objectives and risk appetite. identified risk in aerospace\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 3,
+      "agent": "Executive Finance",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Finance: Estimated project cost, business exposure, and funding impact. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 4,
+      "agent": "Executive Communications",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 5,
+      "agent": "Operations Supervisor",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Operations Supervisor: Coordinated service readiness, support handoff, and continuity planning. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 6,
+      "agent": "Executive Finance",
+      "from_agent": "Executive Strategy",
+      "input": "Executive Strategy: Connected the work to enterprise objectives and risk appetite. identified risk in aerospace\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Finance: Estimated project cost, business exposure, and funding impact. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 7,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Finance",
+      "input": "Finance: Estimated project cost, business exposure, and funding impact. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 8,
+      "agent": "Operations Finance",
+      "from_agent": "Operations Supervisor",
+      "input": "Operations Supervisor: Coordinated service readiness, support handoff, and continuity planning. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Finance: Estimated project cost, operational run rate, and contingency budget. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 9,
+      "agent": "Operations Support",
+      "from_agent": "Operations Supervisor",
+      "input": "Operations Supervisor: Coordinated service readiness, support handoff, and continuity planning. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Support Lead: Prepared runbook, escalation path, and customer-impact handling process.\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 10,
+      "agent": "Executive Supervisor",
+      "from_agent": "Operations Supervisor",
+      "input": "Operations Supervisor: Coordinated service readiness, support handoff, and continuity planning. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 11,
+      "agent": "Operations Procurement",
+      "from_agent": "Operations Finance",
+      "input": "Finance: Estimated project cost, operational run rate, and contingency budget. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Procurement: Reviewed vendor dependencies, lead times, and contract constraints.\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 12,
+      "agent": "Operations Support",
+      "from_agent": "Operations Finance",
+      "input": "Finance: Estimated project cost, operational run rate, and contingency budget. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Support Lead: Prepared runbook, escalation path, and customer-impact handling process.\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 13,
+      "agent": "Operations Supervisor",
+      "from_agent": "Operations Support",
+      "input": "Support Lead: Prepared runbook, escalation path, and customer-impact handling process.\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Operations Supervisor: Coordinated service readiness, support handoff, and continuity planning. exposure estimated at $1.5M\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 14,
+      "agent": "Operations Vendor Manager",
+      "from_agent": "Operations Procurement",
+      "input": "Procurement: Reviewed vendor dependencies, lead times, and contract constraints.\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Vendor Manager: Confirmed supplier obligations, support SLAs, and dependency risks.\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 15,
+      "agent": "Operations Support",
+      "from_agent": "Operations Vendor Manager",
+      "input": "Vendor Manager: Confirmed supplier obligations, support SLAs, and dependency risks.\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Support Lead: Prepared runbook, escalation path, and customer-impact handling process.\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    }
+  ],
+  "post_revocation_steps": [
+    {
+      "sequence": 0,
+      "agent": "Executive Communications",
+      "from_agent": null,
+      "input": "Execute a comprehensive risk assessment for a proposed multi-year fixed-price development contract for a next-generation radar system, evaluating technical maturity risks, cost growth scenarios, subcontractor dependency exposure, and regulatory schedule risks for executive bid approval.",
+      "output": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Executive Communications] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "source_execution"
+    }
+  ],
+  "trace_semantics": "Deterministic simulation; each reachable directed edge transmits at most once, preventing infinite replay through cycles.",
+  "route": [
+    "Executive",
+    "Operations",
+    "Executive"
+  ],
+  "active_nodes_list": [
+    "Executive Communications",
+    "Executive Finance",
+    "Executive Strategy",
+    "Executive Supervisor",
+    "Operations Finance",
+    "Operations Procurement",
+    "Operations Supervisor",
+    "Operations Support",
+    "Operations Vendor Manager"
+  ],
+  "depth_before": 5,
+  "depth_after": 0,
+  "affected_depts_before": 2,
+  "affected_depts_after": 1,
+  "containment_efficiency": 1.0
+}

@@ -1,0 +1,292 @@
+{
+  "experiment": "exp_033",
+  "run_id": "run_1842",
+  "prompt": "Develop an executive summary comparing the financial and operational impact of three proposed store expansion strategies across different geographic markets, with a recommendation for board presentation.",
+  "topology": "workflow_executive_to_engineering_to_executive",
+  "runtime_tau": 2,
+  "compromise_source": "Engineering Architect",
+  "fvs_nodes": [
+    "Engineering Supervisor",
+    "Executive Supervisor"
+  ],
+  "k_before": 8,
+  "k_after": 1,
+  "message_count": 15,
+  "message_count_after_revocation": 1,
+  "infected_nodes": [
+    "Engineering Release Manager",
+    "Engineering Supervisor",
+    "Engineering Planner",
+    "Executive Supervisor",
+    "Executive Strategy",
+    "Executive Finance",
+    "Executive Communications",
+    "Executive Governance"
+  ],
+  "infected_nodes_after_revocation": [
+    "Engineering Release Manager"
+  ],
+  "infection_paths": [
+    [
+      "Engineering Architect",
+      "Engineering Release Manager"
+    ],
+    [
+      "Engineering Architect",
+      "Engineering Release Manager",
+      "Engineering Supervisor"
+    ],
+    [
+      "Engineering Architect",
+      "Engineering Release Manager",
+      "Engineering Supervisor",
+      "Engineering Planner"
+    ],
+    [
+      "Engineering Architect",
+      "Engineering Release Manager",
+      "Engineering Supervisor",
+      "Executive Supervisor"
+    ],
+    [
+      "Engineering Architect",
+      "Engineering Release Manager",
+      "Engineering Supervisor",
+      "Executive Supervisor",
+      "Executive Communications"
+    ],
+    [
+      "Engineering Architect",
+      "Engineering Release Manager",
+      "Engineering Supervisor",
+      "Executive Supervisor",
+      "Executive Finance"
+    ],
+    [
+      "Engineering Architect",
+      "Engineering Release Manager",
+      "Engineering Supervisor",
+      "Executive Supervisor",
+      "Executive Governance"
+    ],
+    [
+      "Engineering Architect",
+      "Engineering Release Manager",
+      "Engineering Supervisor",
+      "Executive Supervisor",
+      "Executive Strategy"
+    ]
+  ],
+  "infection_paths_after_revocation": [
+    [
+      "Engineering Architect",
+      "Engineering Release Manager"
+    ]
+  ],
+  "steps": [
+    {
+      "sequence": 0,
+      "agent": "Engineering Architect",
+      "from_agent": null,
+      "input": "Develop an executive summary comparing the financial and operational impact of three proposed store expansion strategies across different geographic markets, with a recommendation for board presentation.",
+      "output": "Architect: Designed target architecture, integration boundaries, and failure-mode controls. identified risk in retail\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "source_execution"
+    },
+    {
+      "sequence": 1,
+      "agent": "Engineering Release Manager",
+      "from_agent": "Engineering Architect",
+      "input": "Architect: Designed target architecture, integration boundaries, and failure-mode controls. identified risk in retail\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Release Manager: Coordinated release gates, approvals, and production readiness evidence.\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 2,
+      "agent": "Engineering Supervisor",
+      "from_agent": "Engineering Release Manager",
+      "input": "Release Manager: Coordinated release gates, approvals, and production readiness evidence.\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 3,
+      "agent": "Engineering Planner",
+      "from_agent": "Engineering Supervisor",
+      "input": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Planner: Generated implementation roadmap with dependencies and delivery milestones. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 4,
+      "agent": "Engineering Release Manager",
+      "from_agent": "Engineering Supervisor",
+      "input": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Release Manager: Coordinated release gates, approvals, and production readiness evidence.\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 5,
+      "agent": "Executive Supervisor",
+      "from_agent": "Engineering Supervisor",
+      "input": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 6,
+      "agent": "Engineering Architect",
+      "from_agent": "Engineering Planner",
+      "input": "Planner: Generated implementation roadmap with dependencies and delivery milestones. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Architect: Designed target architecture, integration boundaries, and failure-mode controls. identified risk in retail\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 7,
+      "agent": "Executive Strategy",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Strategy: Connected the work to enterprise objectives and risk appetite. identified risk in retail\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 8,
+      "agent": "Executive Finance",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Finance: Estimated project cost, business exposure, and funding impact. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 9,
+      "agent": "Executive Communications",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 10,
+      "agent": "Executive Governance",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Governance Lead: Recorded decision rights, policy exceptions, and escalation requirements.\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 11,
+      "agent": "Engineering Supervisor",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 12,
+      "agent": "Executive Finance",
+      "from_agent": "Executive Strategy",
+      "input": "Executive Strategy: Connected the work to enterprise objectives and risk appetite. identified risk in retail\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Finance: Estimated project cost, business exposure, and funding impact. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 13,
+      "agent": "Executive Governance",
+      "from_agent": "Executive Finance",
+      "input": "Finance: Estimated project cost, business exposure, and funding impact. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Governance Lead: Recorded decision rights, policy exceptions, and escalation requirements.\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 14,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Communications",
+      "input": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 15,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Governance",
+      "input": "Governance Lead: Recorded decision rights, policy exceptions, and escalation requirements.\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $2.0M\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    }
+  ],
+  "post_revocation_steps": [
+    {
+      "sequence": 0,
+      "agent": "Engineering Architect",
+      "from_agent": null,
+      "input": "Develop an executive summary comparing the financial and operational impact of three proposed store expansion strategies across different geographic markets, with a recommendation for board presentation.",
+      "output": "Architect: Designed target architecture, integration boundaries, and failure-mode controls. identified risk in retail\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "source_execution"
+    },
+    {
+      "sequence": 1,
+      "agent": "Engineering Release Manager",
+      "from_agent": "Engineering Architect",
+      "input": "Architect: Designed target architecture, integration boundaries, and failure-mode controls. identified risk in retail\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Release Manager: Coordinated release gates, approvals, and production readiness evidence.\n[POISONED_DATA origin=Engineering Architect] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    }
+  ],
+  "trace_semantics": "Deterministic simulation; each reachable directed edge transmits at most once, preventing infinite replay through cycles.",
+  "route": [
+    "Executive",
+    "Engineering",
+    "Executive"
+  ],
+  "active_nodes_list": [
+    "Engineering Architect",
+    "Engineering Planner",
+    "Engineering Release Manager",
+    "Engineering Supervisor",
+    "Executive Communications",
+    "Executive Finance",
+    "Executive Governance",
+    "Executive Strategy",
+    "Executive Supervisor"
+  ],
+  "depth_before": 4,
+  "depth_after": 1,
+  "affected_depts_before": 2,
+  "affected_depts_after": 1,
+  "containment_efficiency": 0.875
+}

@@ -1,0 +1,434 @@
+{
+  "experiment": "exp_033",
+  "run_id": "run_1874",
+  "prompt": "Conduct a comprehensive clinical and operational risk assessment for introducing a robotic surgery system into an orthopedic department, encompassing patient safety protocols, staff training adequacy, equipment failure scenarios, liability exposure, and regulatory approval timelines.",
+  "topology": "workflow_research_to_engineering_to_executive",
+  "runtime_tau": 3,
+  "compromise_source": "Research Scientist",
+  "fvs_nodes": [
+    "Engineering Supervisor",
+    "Research Reviewer",
+    "Executive Supervisor"
+  ],
+  "k_before": 11,
+  "k_after": 5,
+  "message_count": 18,
+  "message_count_after_revocation": 5,
+  "infected_nodes": [
+    "Research Analyst",
+    "Research Writer",
+    "Research Reviewer",
+    "Engineering Planner",
+    "Research Supervisor",
+    "Engineering Architect",
+    "Engineering QA",
+    "Engineering Supervisor",
+    "Executive Supervisor",
+    "Executive Communications",
+    "Executive Governance"
+  ],
+  "infected_nodes_after_revocation": [
+    "Research Analyst",
+    "Research Writer",
+    "Engineering Planner",
+    "Engineering Architect",
+    "Engineering QA"
+  ],
+  "infection_paths": [
+    [
+      "Research Scientist",
+      "Research Analyst"
+    ],
+    [
+      "Research Scientist",
+      "Research Analyst",
+      "Research Writer"
+    ],
+    [
+      "Research Scientist",
+      "Research Analyst",
+      "Research Writer",
+      "Engineering Planner"
+    ],
+    [
+      "Research Scientist",
+      "Research Analyst",
+      "Research Writer",
+      "Research Reviewer"
+    ],
+    [
+      "Research Scientist",
+      "Research Analyst",
+      "Research Writer",
+      "Engineering Planner",
+      "Engineering Architect"
+    ],
+    [
+      "Research Scientist",
+      "Research Analyst",
+      "Research Writer",
+      "Research Reviewer",
+      "Research Supervisor"
+    ],
+    [
+      "Research Scientist",
+      "Research Analyst",
+      "Research Writer",
+      "Engineering Planner",
+      "Engineering Architect",
+      "Engineering QA"
+    ],
+    [
+      "Research Scientist",
+      "Research Analyst",
+      "Research Writer",
+      "Engineering Planner",
+      "Engineering Architect",
+      "Engineering QA",
+      "Engineering Supervisor"
+    ],
+    [
+      "Research Scientist",
+      "Research Analyst",
+      "Research Writer",
+      "Engineering Planner",
+      "Engineering Architect",
+      "Engineering QA",
+      "Engineering Supervisor",
+      "Executive Supervisor"
+    ],
+    [
+      "Research Scientist",
+      "Research Analyst",
+      "Research Writer",
+      "Engineering Planner",
+      "Engineering Architect",
+      "Engineering QA",
+      "Engineering Supervisor",
+      "Executive Supervisor",
+      "Executive Communications"
+    ],
+    [
+      "Research Scientist",
+      "Research Analyst",
+      "Research Writer",
+      "Engineering Planner",
+      "Engineering Architect",
+      "Engineering QA",
+      "Engineering Supervisor",
+      "Executive Supervisor",
+      "Executive Governance"
+    ]
+  ],
+  "infection_paths_after_revocation": [
+    [
+      "Research Scientist",
+      "Research Analyst"
+    ],
+    [
+      "Research Scientist",
+      "Research Analyst",
+      "Research Writer"
+    ],
+    [
+      "Research Scientist",
+      "Research Analyst",
+      "Research Writer",
+      "Engineering Planner"
+    ],
+    [
+      "Research Scientist",
+      "Research Analyst",
+      "Research Writer",
+      "Engineering Planner",
+      "Engineering Architect"
+    ],
+    [
+      "Research Scientist",
+      "Research Analyst",
+      "Research Writer",
+      "Engineering Planner",
+      "Engineering Architect",
+      "Engineering QA"
+    ]
+  ],
+  "steps": [
+    {
+      "sequence": 0,
+      "agent": "Research Scientist",
+      "from_agent": null,
+      "input": "Conduct a comprehensive clinical and operational risk assessment for introducing a robotic surgery system into an orthopedic department, encompassing patient safety protocols, staff training adequacy, equipment failure scenarios, liability exposure, and regulatory approval timelines.",
+      "output": "Researcher: Collected literature regarding healthcare migration and risk. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "source_execution"
+    },
+    {
+      "sequence": 1,
+      "agent": "Research Analyst",
+      "from_agent": "Research Scientist",
+      "input": "Researcher: Collected literature regarding healthcare migration and risk. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Analyst: Compared evidence, constraints, and likely enterprise impact. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 2,
+      "agent": "Research Writer",
+      "from_agent": "Research Analyst",
+      "input": "Research Analyst: Compared evidence, constraints, and likely enterprise impact. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Writer: Drafted findings into an executive-ready research report. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 3,
+      "agent": "Research Reviewer",
+      "from_agent": "Research Writer",
+      "input": "Research Writer: Drafted findings into an executive-ready research report. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Reviewer: Validated citations, challenged assumptions, and requested missing evidence.\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 4,
+      "agent": "Engineering Planner",
+      "from_agent": "Research Writer",
+      "input": "Research Writer: Drafted findings into an executive-ready research report. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Planner: Generated implementation roadmap with dependencies and delivery milestones. exposure estimated at $3.0M\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 5,
+      "agent": "Research Supervisor",
+      "from_agent": "Research Reviewer",
+      "input": "Research Reviewer: Validated citations, challenged assumptions, and requested missing evidence.\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Supervisor: Scoped evidence collection and review criteria for the task. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 6,
+      "agent": "Research Scientist",
+      "from_agent": "Research Reviewer",
+      "input": "Research Reviewer: Validated citations, challenged assumptions, and requested missing evidence.\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Researcher: Collected literature regarding healthcare migration and risk. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 7,
+      "agent": "Engineering Architect",
+      "from_agent": "Engineering Planner",
+      "input": "Planner: Generated implementation roadmap with dependencies and delivery milestones. exposure estimated at $3.0M\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Architect: Designed target architecture, integration boundaries, and failure-mode controls. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 8,
+      "agent": "Research Scientist",
+      "from_agent": "Research Supervisor",
+      "input": "Research Supervisor: Scoped evidence collection and review criteria for the task. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Researcher: Collected literature regarding healthcare migration and risk. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 9,
+      "agent": "Research Analyst",
+      "from_agent": "Research Supervisor",
+      "input": "Research Supervisor: Scoped evidence collection and review criteria for the task. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Analyst: Compared evidence, constraints, and likely enterprise impact. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 10,
+      "agent": "Engineering QA",
+      "from_agent": "Engineering Architect",
+      "input": "Architect: Designed target architecture, integration boundaries, and failure-mode controls. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "QA: Detected failing security regression and blocked release pending remediation.\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 11,
+      "agent": "Engineering Supervisor",
+      "from_agent": "Engineering QA",
+      "input": "QA: Detected failing security regression and blocked release pending remediation.\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 12,
+      "agent": "Engineering Planner",
+      "from_agent": "Engineering Supervisor",
+      "input": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Planner: Generated implementation roadmap with dependencies and delivery milestones. exposure estimated at $3.0M\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 13,
+      "agent": "Engineering QA",
+      "from_agent": "Engineering Supervisor",
+      "input": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "QA: Detected failing security regression and blocked release pending remediation.\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 14,
+      "agent": "Executive Supervisor",
+      "from_agent": "Engineering Supervisor",
+      "input": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 15,
+      "agent": "Executive Communications",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 16,
+      "agent": "Executive Governance",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Governance Lead: Recorded decision rights, policy exceptions, and escalation requirements.\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 17,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Communications",
+      "input": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 18,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Governance",
+      "input": "Governance Lead: Recorded decision rights, policy exceptions, and escalation requirements.\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    }
+  ],
+  "post_revocation_steps": [
+    {
+      "sequence": 0,
+      "agent": "Research Scientist",
+      "from_agent": null,
+      "input": "Conduct a comprehensive clinical and operational risk assessment for introducing a robotic surgery system into an orthopedic department, encompassing patient safety protocols, staff training adequacy, equipment failure scenarios, liability exposure, and regulatory approval timelines.",
+      "output": "Researcher: Collected literature regarding healthcare migration and risk. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "source_execution"
+    },
+    {
+      "sequence": 1,
+      "agent": "Research Analyst",
+      "from_agent": "Research Scientist",
+      "input": "Researcher: Collected literature regarding healthcare migration and risk. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Analyst: Compared evidence, constraints, and likely enterprise impact. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 2,
+      "agent": "Research Writer",
+      "from_agent": "Research Analyst",
+      "input": "Research Analyst: Compared evidence, constraints, and likely enterprise impact. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Writer: Drafted findings into an executive-ready research report. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 3,
+      "agent": "Engineering Planner",
+      "from_agent": "Research Writer",
+      "input": "Research Writer: Drafted findings into an executive-ready research report. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Planner: Generated implementation roadmap with dependencies and delivery milestones. exposure estimated at $3.0M\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 4,
+      "agent": "Engineering Architect",
+      "from_agent": "Engineering Planner",
+      "input": "Planner: Generated implementation roadmap with dependencies and delivery milestones. exposure estimated at $3.0M\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Architect: Designed target architecture, integration boundaries, and failure-mode controls. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 5,
+      "agent": "Engineering QA",
+      "from_agent": "Engineering Architect",
+      "input": "Architect: Designed target architecture, integration boundaries, and failure-mode controls. identified risk in healthcare\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "QA: Detected failing security regression and blocked release pending remediation.\n[POISONED_DATA origin=Research Scientist] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    }
+  ],
+  "trace_semantics": "Deterministic simulation; each reachable directed edge transmits at most once, preventing infinite replay through cycles.",
+  "route": [
+    "Research",
+    "Engineering",
+    "Executive"
+  ],
+  "active_nodes_list": [
+    "Engineering Architect",
+    "Engineering Planner",
+    "Engineering QA",
+    "Engineering Supervisor",
+    "Executive Communications",
+    "Executive Governance",
+    "Executive Supervisor",
+    "Research Analyst",
+    "Research Reviewer",
+    "Research Scientist",
+    "Research Supervisor",
+    "Research Writer"
+  ],
+  "depth_before": 8,
+  "depth_after": 5,
+  "affected_depts_before": 3,
+  "affected_depts_after": 2,
+  "containment_efficiency": 0.5454545454545454
+}

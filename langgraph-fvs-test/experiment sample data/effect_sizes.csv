@@ -1,0 +1,46 @@
+metric,baseline,pct_improvement,effect_size,effect_size_label,test,p,adjusted_p
+K After,No Containment,93.63757876646936,-1.0,large,Wilcoxon signed-rank,0.0,0.0
+Containment Ratio,No Containment,100.0,1.0,large,Wilcoxon signed-rank,0.0,0.0
+Containment Gain,No Containment,100.0,1.0,large,Wilcoxon signed-rank,0.0,0.0
+Message Count After,No Containment,96.07916602384677,-1.0,large,Wilcoxon signed-rank,0.0,0.0
+Propagation Depth After,No Containment,90.1826823110055,-1.0,large,Wilcoxon signed-rank,0.0,0.0
+K After,Random Revocation,79.67935832634024,-0.9800634682658671,large,Wilcoxon signed-rank,0.0,0.0
+Containment Ratio,Random Revocation,43.78529353002883,0.9814657671164417,large,Wilcoxon signed-rank,0.0,0.0
+Containment Gain,Random Revocation,36.31936058497399,0.9800579710144928,large,Wilcoxon signed-rank,0.0,0.0
+Message Count After,Random Revocation,86.19837871679833,-0.9971810905452726,large,Wilcoxon signed-rank,0.0,0.0
+Propagation Depth After,Random Revocation,74.44358740892386,-0.9645452726363182,large,Wilcoxon signed-rank,2.346698676074293e-305,7.542960030238798e-305
+K After,Degree Centrality,47.70872567482737,-0.6588344125809436,large,Wilcoxon signed-rank,5.257971666134032e-80,9.10033557600121e-80
+Containment Ratio,Degree Centrality,9.340163192337528,0.6754616781443793,large,Wilcoxon signed-rank,2.0733731900388538e-82,3.887574731322851e-82
+Containment Gain,Degree Centrality,6.608982999260836,0.6588344125809436,large,Wilcoxon signed-rank,5.257971666134032e-80,9.10033557600121e-80
+Message Count After,Degree Centrality,59.89630297565375,-0.7562726192405337,large,Wilcoxon signed-rank,2.0629432469081094e-104,4.4205926719459486e-104
+Propagation Depth After,Degree Centrality,48.1974921630094,-0.6961117688505418,large,Wilcoxon signed-rank,3.3815847406487876e-89,6.616144057791106e-89
+K After,Betweenness Centrality,49.68287526427061,-0.6362346325492749,large,Wilcoxon signed-rank,6.293302152812675e-71,9.765468857812772e-71
+Containment Ratio,Betweenness Centrality,13.675728904124856,0.6686820081708134,large,Wilcoxon signed-rank,4.345261708064194e-77,7.242102846773655e-77
+Containment Gain,Betweenness Centrality,7.191571216228031,0.6362346325492749,large,Wilcoxon signed-rank,6.293302152812675e-71,9.765468857812772e-71
+Message Count After,Betweenness Centrality,65.13815402704292,-0.772855464159812,large,Wilcoxon signed-rank,1.5852349644213826e-103,3.242526063589192e-103
+Propagation Depth After,Betweenness Centrality,46.084828711256115,-0.652131503294294,large,Wilcoxon signed-rank,1.1956122428592381e-69,1.793418364288857e-69
+K After,PageRank,46.653858469420435,-0.6066077614491294,large,Wilcoxon signed-rank,3.2597751659051015e-51,4.3144083078155753e-51
+Containment Ratio,PageRank,7.754015979258819,0.5863236124463977,large,Wilcoxon signed-rank,2.572088046933648e-47,3.3069703460575473e-47
+Containment Gain,PageRank,6.317752146387985,0.6066077614491294,large,Wilcoxon signed-rank,3.2597751659051015e-51,4.3144083078155753e-51
+Message Count After,PageRank,60.272443054935245,-0.6999159067852152,large,Wilcoxon signed-rank,1.221947740364112e-67,1.7737951069801625e-67
+Propagation Depth After,PageRank,37.047619047619044,-0.5463379609136189,large,Wilcoxon signed-rank,2.121325744315641e-40,2.5799907701136175e-40
+K After,Supervisor Only,36.87002652519894,-0.4226588628762542,medium,Wilcoxon signed-rank,2.223311700141458e-28,2.5012256626591403e-28
+Containment Ratio,Supervisor Only,4.589382803939939,0.4484143573817487,medium,Wilcoxon signed-rank,2.9401671062002863e-31,3.4817768362898128e-31
+Containment Gain,Supervisor Only,4.132336702624646,0.4226588628762542,medium,Wilcoxon signed-rank,2.223311700141458e-28,2.5012256626591403e-28
+Message Count After,Supervisor Only,46.270009060706734,-0.5464156507463594,large,Wilcoxon signed-rank,1.100560064744684e-45,1.375700080930855e-45
+Propagation Depth After,Supervisor Only,45.59670781893004,-0.6192116249197174,large,Wilcoxon signed-rank,2.680101186510991e-57,3.7688922935310814e-57
+K After,Department Isolation,77.69447047797564,-0.9711725934404231,large,Wilcoxon signed-rank,8.892473543360808e-306,3.334677578760303e-305
+Containment Ratio,Department Isolation,44.110059911410545,0.9770554261883149,large,Wilcoxon signed-rank,1.5216176182139992e-305,5.267137909202305e-305
+Containment Gain,Department Isolation,31.005556742893763,0.9711725934404231,large,Wilcoxon signed-rank,8.892473543360808e-306,3.334677578760303e-305
+Message Count After,Department Isolation,86.84074265848066,-0.9975794690565376,large,Wilcoxon signed-rank,0.0,0.0
+Propagation Depth After,Department Isolation,75.358807082945,-0.9763849324804549,large,Wilcoxon signed-rank,3.704367576788028e-303,1.1113102730364084e-302
+K After,Static FVS,8.259911894273134,-0.154838298955946,small,Wilcoxon signed-rank,0.001305846360633435,0.0013355246870114677
+Containment Ratio,Static FVS,0.8638323539773272,0.14028520499108735,small,Wilcoxon signed-rank,0.004019682279730035,0.004019682279730035
+Containment Gain,Static FVS,0.6155361319709409,0.154838298955946,small,Wilcoxon signed-rank,0.001305846360633435,0.0013355246870114677
+Message Count After,Static FVS,20.367054610564015,-0.2921224124712497,small,Wilcoxon signed-rank,1.7617413122526572e-09,1.9336185134480387e-09
+Propagation Depth After,Static FVS,12.45033112582781,-0.26503599912729386,small,Wilcoxon signed-rank,1.6222131603429434e-07,1.738085528938868e-07
+K After,Oracle Compromised Node,-inf,1.0,large,Wilcoxon signed-rank,2.217041994047096e-138,5.542604985117739e-138
+Containment Ratio,Oracle Compromised Node,-6.817681100487427,-1.0,large,Wilcoxon signed-rank,1.2819148064798056e-132,2.884308314579563e-132
+Containment Gain,Oracle Compromised Node,-6.362421233530649,-1.0,large,Wilcoxon signed-rank,2.217041994047096e-138,5.542604985117739e-138
+Message Count After,Oracle Compromised Node,-inf,1.0,large,Wilcoxon signed-rank,2.487844963638781e-138,5.892264387565533e-138
+Propagation Depth After,Oracle Compromised Node,-inf,1.0,large,Wilcoxon signed-rank,8.835672822410724e-140,2.4850329813030163e-139

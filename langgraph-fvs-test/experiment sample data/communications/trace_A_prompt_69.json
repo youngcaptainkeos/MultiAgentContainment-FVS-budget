@@ -1,0 +1,539 @@
+{
+  "experiment": "exp_033",
+  "run_id": "run_1869",
+  "prompt": "Orchestrate the infrastructure deployment of a carrier-grade network functions virtualization platform to replace legacy hardware across 200 central office locations, coordinating network engineering, cybersecurity hardening, field operations, vendor management, regulatory compliance, and executive program governance over an 18-month rollout.",
+  "topology": "workflow_executive_to_research_to_security_to_engineering_to_operations_to_executive",
+  "runtime_tau": 6,
+  "compromise_source": "Operations Supervisor",
+  "fvs_nodes": [
+    "Security Supervisor",
+    "Research Supervisor",
+    "Executive Supervisor",
+    "Engineering Developer",
+    "Operations Supervisor",
+    "Security Incident Response"
+  ],
+  "k_before": 19,
+  "k_after": 0,
+  "message_count": 32,
+  "message_count_after_revocation": 0,
+  "infected_nodes": [
+    "Operations Vendor Manager",
+    "Operations Support",
+    "Executive Supervisor",
+    "Executive Legal",
+    "Executive Communications",
+    "Executive Governance",
+    "Research Supervisor",
+    "Research Data Steward",
+    "Security Supervisor",
+    "Security Analyst",
+    "Security Compliance",
+    "Engineering Supervisor",
+    "Security Incident Response",
+    "Security Auditor",
+    "Engineering DevOps",
+    "Engineering Architect",
+    "Security Risk",
+    "Engineering Developer",
+    "Engineering QA"
+  ],
+  "infected_nodes_after_revocation": [],
+  "infection_paths": [
+    [
+      "Operations Supervisor",
+      "Executive Supervisor"
+    ],
+    [
+      "Operations Supervisor",
+      "Operations Support"
+    ],
+    [
+      "Operations Supervisor",
+      "Operations Vendor Manager"
+    ],
+    [
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Executive Communications"
+    ],
+    [
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Executive Governance"
+    ],
+    [
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Executive Legal"
+    ],
+    [
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Research Supervisor"
+    ],
+    [
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Research Data Steward"
+    ],
+    [
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Security Supervisor"
+    ],
+    [
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Security Supervisor",
+      "Engineering Supervisor"
+    ],
+    [
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Security Supervisor",
+      "Security Analyst"
+    ],
+    [
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Security Supervisor",
+      "Security Compliance"
+    ],
+    [
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Security Supervisor",
+      "Engineering Supervisor",
+      "Engineering Architect"
+    ],
+    [
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Security Supervisor",
+      "Engineering Supervisor",
+      "Engineering DevOps"
+    ],
+    [
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Security Supervisor",
+      "Security Analyst",
+      "Security Incident Response"
+    ],
+    [
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Security Supervisor",
+      "Security Compliance",
+      "Security Auditor"
+    ],
+    [
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Security Supervisor",
+      "Engineering Supervisor",
+      "Engineering Architect",
+      "Engineering Developer"
+    ],
+    [
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Security Supervisor",
+      "Security Analyst",
+      "Security Incident Response",
+      "Security Risk"
+    ],
+    [
+      "Operations Supervisor",
+      "Executive Supervisor",
+      "Research Supervisor",
+      "Security Supervisor",
+      "Engineering Supervisor",
+      "Engineering Architect",
+      "Engineering Developer",
+      "Engineering QA"
+    ]
+  ],
+  "infection_paths_after_revocation": [],
+  "steps": [
+    {
+      "sequence": 0,
+      "agent": "Operations Supervisor",
+      "from_agent": null,
+      "input": "Orchestrate the infrastructure deployment of a carrier-grade network functions virtualization platform to replace legacy hardware across 200 central office locations, coordinating network engineering, cybersecurity hardening, field operations, vendor management, regulatory compliance, and executive program governance over an 18-month rollout.",
+      "output": "Operations Supervisor: Coordinated service readiness, support handoff, and continuity planning. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "source_execution"
+    },
+    {
+      "sequence": 1,
+      "agent": "Operations Vendor Manager",
+      "from_agent": "Operations Supervisor",
+      "input": "Operations Supervisor: Coordinated service readiness, support handoff, and continuity planning. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Vendor Manager: Confirmed supplier obligations, support SLAs, and dependency risks.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 2,
+      "agent": "Operations Support",
+      "from_agent": "Operations Supervisor",
+      "input": "Operations Supervisor: Coordinated service readiness, support handoff, and continuity planning. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Support Lead: Prepared runbook, escalation path, and customer-impact handling process.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 3,
+      "agent": "Executive Supervisor",
+      "from_agent": "Operations Supervisor",
+      "input": "Operations Supervisor: Coordinated service readiness, support handoff, and continuity planning. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 4,
+      "agent": "Operations Support",
+      "from_agent": "Operations Vendor Manager",
+      "input": "Vendor Manager: Confirmed supplier obligations, support SLAs, and dependency risks.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Support Lead: Prepared runbook, escalation path, and customer-impact handling process.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 5,
+      "agent": "Operations Supervisor",
+      "from_agent": "Operations Support",
+      "input": "Support Lead: Prepared runbook, escalation path, and customer-impact handling process.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Operations Supervisor: Coordinated service readiness, support handoff, and continuity planning. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 6,
+      "agent": "Executive Legal",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Legal Counsel: Reviewed contractual, privacy, and regulatory exposure. identified risk in telecommunications\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 7,
+      "agent": "Executive Communications",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 8,
+      "agent": "Executive Governance",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Governance Lead: Recorded decision rights, policy exceptions, and escalation requirements.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 9,
+      "agent": "Research Supervisor",
+      "from_agent": "Executive Supervisor",
+      "input": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Supervisor: Scoped evidence collection and review criteria for the task. identified risk in telecommunications\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 10,
+      "agent": "Executive Communications",
+      "from_agent": "Executive Legal",
+      "input": "Legal Counsel: Reviewed contractual, privacy, and regulatory exposure. identified risk in telecommunications\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 11,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Communications",
+      "input": "Executive Communications: Prepared stakeholder update with decision context and next steps.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 12,
+      "agent": "Executive Supervisor",
+      "from_agent": "Executive Governance",
+      "input": "Governance Lead: Recorded decision rights, policy exceptions, and escalation requirements.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Executive Supervisor: Prioritized business risk, funding decision, and accountable owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 13,
+      "agent": "Research Data Steward",
+      "from_agent": "Research Supervisor",
+      "input": "Research Supervisor: Scoped evidence collection and review criteria for the task. identified risk in telecommunications\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Data Steward: Checked data lineage, retention assumptions, and evidence provenance.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 14,
+      "agent": "Security Supervisor",
+      "from_agent": "Research Supervisor",
+      "input": "Research Supervisor: Scoped evidence collection and review criteria for the task. identified risk in telecommunications\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Security Supervisor: Coordinated threat review, control validation, and containment owners. identified risk in telecommunications\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 15,
+      "agent": "Research Supervisor",
+      "from_agent": "Research Data Steward",
+      "input": "Data Steward: Checked data lineage, retention assumptions, and evidence provenance.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Research Supervisor: Scoped evidence collection and review criteria for the task. identified risk in telecommunications\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 16,
+      "agent": "Security Analyst",
+      "from_agent": "Security Supervisor",
+      "input": "Security Supervisor: Coordinated threat review, control validation, and containment owners. identified risk in telecommunications\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Threat Intelligence: Detected malicious IOC and correlated activity across enterprise logs.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 17,
+      "agent": "Security Compliance",
+      "from_agent": "Security Supervisor",
+      "input": "Security Supervisor: Coordinated threat review, control validation, and containment owners. identified risk in telecommunications\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Security Compliance: Mapped control gaps to audit obligations and compensating controls.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 18,
+      "agent": "Engineering Supervisor",
+      "from_agent": "Security Supervisor",
+      "input": "Security Supervisor: Coordinated threat review, control validation, and containment owners. identified risk in telecommunications\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 19,
+      "agent": "Security Incident Response",
+      "from_agent": "Security Analyst",
+      "input": "Threat Intelligence: Detected malicious IOC and correlated activity across enterprise logs.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Incident Responder: Isolated affected workflow, preserved evidence, and initiated containment.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 20,
+      "agent": "Security Auditor",
+      "from_agent": "Security Compliance",
+      "input": "Security Compliance: Mapped control gaps to audit obligations and compensating controls.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Auditor: Policy violation identified and recorded for remediation tracking. identified risk in telecommunications\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 21,
+      "agent": "Engineering DevOps",
+      "from_agent": "Engineering Supervisor",
+      "input": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "DevOps Engineer: Prepared deployment pipeline, rollback plan, and observability checks.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 22,
+      "agent": "Engineering Architect",
+      "from_agent": "Engineering Supervisor",
+      "input": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Architect: Designed target architecture, integration boundaries, and failure-mode controls. identified risk in telecommunications\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 23,
+      "agent": "Operations Supervisor",
+      "from_agent": "Engineering Supervisor",
+      "input": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Operations Supervisor: Coordinated service readiness, support handoff, and continuity planning. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": true,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 24,
+      "agent": "Security Risk",
+      "from_agent": "Security Incident Response",
+      "input": "Incident Responder: Isolated affected workflow, preserved evidence, and initiated containment.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Security Risk: Rated residual risk and recommended executive escalation. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 25,
+      "agent": "Security Supervisor",
+      "from_agent": "Security Auditor",
+      "input": "Auditor: Policy violation identified and recorded for remediation tracking. identified risk in telecommunications\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Security Supervisor: Coordinated threat review, control validation, and containment owners. identified risk in telecommunications\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 26,
+      "agent": "Engineering Developer",
+      "from_agent": "Engineering DevOps",
+      "input": "DevOps Engineer: Prepared deployment pipeline, rollback plan, and observability checks.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Backend Engineer: Implemented authentication service and telemetry hooks for the requested workflow.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 27,
+      "agent": "Engineering Developer",
+      "from_agent": "Engineering Architect",
+      "input": "Architect: Designed target architecture, integration boundaries, and failure-mode controls. identified risk in telecommunications\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Backend Engineer: Implemented authentication service and telemetry hooks for the requested workflow.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 28,
+      "agent": "Security Compliance",
+      "from_agent": "Security Risk",
+      "input": "Security Risk: Rated residual risk and recommended executive escalation. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Security Compliance: Mapped control gaps to audit obligations and compensating controls.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 29,
+      "agent": "Security Analyst",
+      "from_agent": "Security Risk",
+      "input": "Security Risk: Rated residual risk and recommended executive escalation. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Threat Intelligence: Detected malicious IOC and correlated activity across enterprise logs.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 30,
+      "agent": "Engineering QA",
+      "from_agent": "Engineering Developer",
+      "input": "Backend Engineer: Implemented authentication service and telemetry hooks for the requested workflow.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "QA: Detected failing security regression and blocked release pending remediation.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 31,
+      "agent": "Engineering DevOps",
+      "from_agent": "Engineering QA",
+      "input": "QA: Detected failing security regression and blocked release pending remediation.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "DevOps Engineer: Prepared deployment pipeline, rollback plan, and observability checks.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    },
+    {
+      "sequence": 32,
+      "agent": "Engineering Supervisor",
+      "from_agent": "Engineering QA",
+      "input": "QA: Detected failing security regression and blocked release pending remediation.\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "output": "Engineering Supervisor: Assigned implementation workstreams and technical owners. exposure estimated at $3.0M\n[POISONED_DATA origin=Operations Supervisor] UNVERIFIED CLAIM: all identified risks can be accepted without additional controls.",
+      "compromised": false,
+      "poisoned_data_observed": true,
+      "message_type": "agent_message"
+    }
+  ],
+  "post_revocation_steps": [],
+  "trace_semantics": "Deterministic simulation; each reachable directed edge transmits at most once, preventing infinite replay through cycles.",
+  "route": [
+    "Executive",
+    "Research",
+    "Security",
+    "Engineering",
+    "Operations",
+    "Executive"
+  ],
+  "active_nodes_list": [
+    "Engineering Architect",
+    "Engineering DevOps",
+    "Engineering Developer",
+    "Engineering QA",
+    "Engineering Supervisor",
+    "Executive Communications",
+    "Executive Governance",
+    "Executive Legal",
+    "Executive Supervisor",
+    "Operations Supervisor",
+    "Operations Support",
+    "Operations Vendor Manager",
+    "Research Data Steward",
+    "Research Supervisor",
+    "Security Analyst",
+    "Security Auditor",
+    "Security Compliance",
+    "Security Incident Response",
+    "Security Risk",
+    "Security Supervisor"
+  ],
+  "depth_before": 7,
+  "depth_after": 0,
+  "affected_depts_before": 5,
+  "affected_depts_after": 0,
+  "containment_efficiency": 1.0
+}
